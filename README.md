@@ -410,6 +410,7 @@ new Vue({
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
 </head>
 <body>
 <div id="app">
