@@ -1,13 +1,16 @@
 [TOC]
 
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
 # sample 
 
 > A Vue.js project
+
 
 Vue入门
 ===================================
 
 ##vue-cli脚手架 目录结构
+
 |目录/文件|说明|
 |:----|:---|
 |build|最终发布的代码存放位置。|
@@ -24,7 +27,7 @@ Vue入门
 
 Vue.js 使用了基于 HTML 的模版语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。类似于.tpl模板。
 ***文本***:双大括号插值。
-***htmlL***:使用v-html指令
+***html***:使用v-html指令
 
 ```html
 <div v-html="html"></div>
@@ -333,7 +336,7 @@ new Vue({
     },
     styleObj:{
         color:'blue',
-        fontSize:30,
+        fontSize:30
     }
   },
   computed: {
@@ -447,7 +450,6 @@ new Vue({
     </div>
   
 </div>
-<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
 <script>
   new Vue({
   el: '#app',
@@ -560,7 +562,6 @@ function User( uid ) {
 >>脏值检查（angular.js） (暂不深入，待后续研究）
 
 >>数据劫持（vue.js）(暂不深入，待后续研究）
-
 
 
 
