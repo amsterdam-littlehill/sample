@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<!--<div id="box">
+  {{msg}}
+  <input type="text" v-model="msg">&lt;!&ndash;使用v-model双向数据绑定&ndash;&gt;
+  <input type="text" v-model="msg">
+</div>-->
+
+<div class="box">
+  {{msg}}
+  <input type="text" v-model="msg"><!--使用v-model双向数据绑定-->
+  <input type="text" v-model="msg">
+  <br>
+  msg2:{{msg2}}
+  <br>
+  msg3:{{msg3}}
+  <br>
+  arr:{{arr}}
+  <br>
+  json:{{json}} 注意：vue1中 json为object
+  <br>
+
+
+</div>
+<script>
+  /*无需new*/
+  new Vue({
+    el: '.box', //选择器 1.id 2.class 3.name 4.body
+    data: function () {
+      return {
+        msg: "welcome vue",
+        msg2:12,
+        msg3:true,
+        arr:['apple','orange','brane'],
+        json:{
+          a:'apple',
+          b:'orange',
+          c:'banana'
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

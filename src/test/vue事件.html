@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>vue事件</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<h1>vue事件</h1>
+<div id="box">
+  点击事件:
+  <button v-on:click="func1">点击1</button>
+  <button @click="func2">点击2</button>
+  <br>
+  添加水果:
+  <span v-for="a in arr"> {{a}} </span> <br>
+  <button @mouseenter="pushArr">添加</button>
+  <button @mouseover="spliceArr">删除</button>
+  <br>
+  <div>
+    点击按钮div消失：
+    <div v-show="divShow" v-bind:class="{'divShow':divShow}"
+         style="width: 100px;height: 100px;background-color: rebeccapurple"></div>
+    <div v-if="divShow" v-bind:class="{'divShow':divShow}"
+         style="width: 100px;height: 100px;background-color: red"></div>
+    <button @click="displayDiv" v-html="divShowButton"></button>
+  </div>
+</div>
+<script>
+  /*无需new*/
+  new Vue({
+    el: '#box', //选择器 1.id 2.class 3.name 4.body
+    data: function () {
+      return {
+        msg: "welcome vue",
+        arr: ['orange'],
+        divShow: true,
+        divShowButton: "隐藏"
+      }
+    },
+    methods: {
+      func1: function () {
+        alert("使用v-on:click触发点击");
+      },
+      func2: function () {
+        alert("使用@click触发点击");
+      },
+      pushArr: function () {
+        this.arr.push('apple')
+      },
+      spliceArr: function () {
+        this.arr.splice(this.arr, Math.random() * this.arr.length)
+      },
+      displayDiv: function () {
+        this.divShowButton = this.divShow ? '显示' : '隐藏'
+        this.divShow = this.divShow ? false : true;
+      }
+    }
+  });
+</script>
+<style>
+</style>
+</body>
+</html>

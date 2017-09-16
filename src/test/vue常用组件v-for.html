@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue常用组件v-for：循环</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<h1>vue常用组件v-for：循环</h1>
+<pre>
+  丢弃$index和$key
+新数组语法
+value in arr
+(value, index) in arr
+新对象语法
+value in obj
+(value, key) in obj
+(value, key, index) in obj
+</pre>
+<div id="box">
+  遍历arr:
+  <ul v-for="a in arr">
+    <li>{{a}}</li>
+  </ul>
+  <br>
+  遍历arr:
+  <ul v-for="(key,index) in arr">
+    <li>{{index}}:{{key}}</li>
+  </ul>
+  <br>
+  遍历json:
+  <ul v-for="(key,value,index) in json">
+    <li>{{index}}:{{key}}:{{value}}</li>
+  </ul>
+</div>
+<script>
+  /*无需new*/
+  new Vue({
+    el: '#box', //选择器 1.id 2.class 3.name 4.body
+    data: function () {
+      return {
+        arr: ['apple', 'orange', 'brane'],
+        json: {
+          a: 'apple',
+          b: 'orange',
+          c: 'banana'
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
