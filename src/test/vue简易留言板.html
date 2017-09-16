@@ -58,7 +58,7 @@
           <button class="close" data-dismiss="modal">
             <span>&times;</span>
           </button>
-          <h4 class="modal-title">确认删除吗?</h4>
+          <h4 class="modal-title">{{delMsg}}</h4>
         </div>
         <div class="modal-body text-right">
           <button class="btn btn-primary btn-sm" data-dismiss="modal">取消</button>
@@ -81,7 +81,8 @@
           username: '',
           age: ''
         },
-        nowIndex: -1
+        nowIndex: -1,
+        delMsg:'确认删除吗?'
       }
     },
     methods: {
@@ -94,8 +95,10 @@
         this.addPerson.age = '';
       },
       del: function (index) {
+        if(index=-1){
+          this.delMsg="确认全部删除吗？"
+        }
         this.nowIndex = index;
-        console.log(this.nowIndex);
       },
       delThis: function (index) {
         if(index==-1){
