@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue组件-父子组件1</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <aaa></aaa>
+  <ccc></ccc>
+</div>
+<template id="ccc">
+  <p>这是组件C
+    <ddd></ddd>
+  </p>
+
+</template>
+<script>
+  var vm = new Vue({
+    el: '#box',
+    data() {
+      return {
+        a: 'aaa',
+      }
+    },
+    components: {
+      'aaa': {
+        template: '<div class="divBox">我是组件a<bbb></bbb></div>',
+        components: {
+          'bbb': {
+            template: '<p>子组件b</p>'
+          }
+        }
+      },
+      'ccc': {
+        template: '#ccc',
+        components: {
+          'ddd': {
+            template: '<span>我是ddd组件</span>'
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

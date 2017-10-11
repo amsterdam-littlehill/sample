@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue组件-父子组件3</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <h1>{{a}}</h1>
+  <aaa :data='a' @parentmethod="parentMethod" :hoverparentmethod="parentMethod"></aaa>
+  <!-- 监听子组件触发的parentmethod事件,然后调用parentMethod方法 -->
+</div>
+<template id="temA">
+  <div style="border: 1px solid red;padding: 2px">
+    <p @click="callParentMethod" @mouseenter="hoverParentMethod">父组件aaa接收数据-->{{data}}</p>
+    <input type="text" v-model="data">
+    <bbb :msg=m2></bbb>
+  </div>
+</template>
+<script>
+  var vm = new Vue({
+    el: '#box',
+    data: {
+      a: 'vue实例数据'
+    },
+    methods: {
+      parentMethod(param) {
+        console.log("这是vue实例方法：funcToA" + ",参数:" + param);
+        this.a = param;
+      }
+    },
+    components: {
+      'aaa': {
+        data() {
+          return {
+            m2: '我是父组件aaa的数据'
+          }
+        },
+        methods: {
+          callParentMethod() {
+            console.log("执行组件aaa中的方法:funcToA");
+            /*this.$root.parentMethod();*/
+            this.$emit('parentmethod', '1111111');
+          },
+          hoverParentMethod() {
+            console.log("执行组件aaa中的方法:funcToA");
+            this.$emit('parentmethod', '2222');
+            /*方式二:①子组件通过触发事件emit调用父组件方法*/
+          }
+        },
+        props: ['data', 'hoverparentmethod'],
+        /*方式一：通过prop方式将方法传给子组件*/
+        template: '#temA',
+        components: {
+          'bbb': {
+            methods: {
+              getFuncFromA() {
+                console.log("调用父组件aaa的方法：aFunction");
+              }
+            },
+            props: ['msg'],
+            template: '<div style="border: solid 1px blue;margin: 2px" @click="getFuncFromA"><p>子组件bbb组件接收父组件aaa数据-->{{msg}}</p><input type="text" v-model="msg"></div>'
+          }
+        }
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

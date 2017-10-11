@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue生命周期</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  {{msg}}
+</div>
+<script>
+  /*1.创建vue实例*/
+  new Vue({
+    el: '#box',
+    data: function () {
+      return {
+        msg: 'msg'
+      }
+    },
+    created: function () {
+      console.log("1.实例已经创建");
+    },
+    /*2.0发生变化：使用 created 钩子函数替代。*/
+    beforeComplie: function () {
+      console.log("2.编译之前")
+    },
+    /*2.0发生变化：使用 mounted  钩子函数替代。*/
+    /*complied: function () {
+      console.log("3.编译之后")
+    },*/
+    mounted: function () {
+      console.log("3.编译之后")
+    },
+    /*2.0发生变化：使用 mounted  钩子函数替代。*/
+    /*ready: function () {
+      console.log("4.插入文档中")
+    },*/
+    mounted: function () {
+      this.$nextTick(function () {
+        console.log("4.插入文档中")
+      })
+    },
+    beforeDestroy: function () {
+      console.log("5.销毁之前")
+    },
+    destroyed: function () {
+      console.log("6.销毁之后")
+    },
+    methods: {}
+  });
+  document.onclick=function () {
+
+  };
+</script>
+</body>
+</html>

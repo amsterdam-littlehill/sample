@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VUE动画</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <!--动画 css3-->
+  <input type="button" value="按钮" @click="toggle">
+  <!--vue 1.0写法-->
+  <div v-show="show" id="div1" transiton="fade">
+  </div>
+  <transition name="fade">
+  </transition>
+</div>
+<script>
+  var vm = new Vue({
+    data: function () {
+      return {
+        show: true
+      }
+    },
+    methods: {
+      /*toggle: function () {
+        alert(1);
+      }*/
+      /*es6写法 对象简洁语法形式*/
+      toggle() {
+        this.show = !this.show;
+      }
+    }
+  }).$mount('#box');
+</script>
+<style>
+  #div1 {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+  }
+
+  .fade-transition {
+    transition: all .3s ease;
+    height: 30px;
+    padding: 10px;
+    background-color: #eee;
+    overflow: hidden;
+  }
+
+  .fade-enter {
+    opacity: 0;
+  }
+
+  .fade-leaver {
+    opacity: 1;
+    transform: translateX(200px);
+  }
+</style>
+</body>
+</html>

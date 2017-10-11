@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue实例简单方法</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  {{a}}
+</div>
+<script>
+  var vm = new Vue({
+    /*el: '#box',*/
+    data: function () {
+      return {
+        a: 1
+      }
+    },
+    aa:1,/*自定义属性*/
+    show:function () {
+      alert('调用自定义方法')
+    }
+  }).$mount('#box');
+  /*手动挂载vue实例到指定元素*/
+  console.log(vm.$el);
+  vm.$el.style.background = 'red';
+  console.log(vm.$data.a);
+  console.log(vm.$options.aa)/*访问自定义属性*/
+  vm.$options.show();/*调用自定义方法*/
+  console.log(vm.$log());/*查询数据状态*/
+</script>
+</body>
+</html>

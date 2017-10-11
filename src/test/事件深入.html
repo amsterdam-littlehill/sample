@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>事件深入</title>
+</head>
+<body>
+<div id="box">
+  <input type="button" value="按钮" @click="show($event)">
+</div>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script>
+  var vue=new Vue({
+    el:'#box',
+    methods:{
+      show:function (ev) {
+        alert(ev.clientX+":"+ev.clientY);
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

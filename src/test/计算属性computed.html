@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-text</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <button v-text="a" @click="addA"></button>
+  <button v-text="b"></button>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#box',
+    data: function () {
+      return {
+        a: 1
+      }
+    },
+    methods: {
+      addA: function () {
+        this.a += 1;
+      }
+    },
+    computed: {
+      /* b: function () {
+         return this.a + 1;
+       },*/
+      b: {
+        get: function () {
+          return this.b + 1;
+        },
+        set: function (n) {
+          this.b = n;
+        }
+      }
+    }
+  });
+  console.log(vm.a);
+</script>
+</body>
+</html>

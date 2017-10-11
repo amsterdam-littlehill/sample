@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue自定义指令</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <div style="width: 100px;height: 100px" v-red> {{a}}
+  </div>
+  <div style="width: 100px;height: 100px" v-blue="{color:'blue'}"></div>
+</div>
+<script>
+  /*自定义指令*/
+  /*
+  * 指令名称 v-red->名称为red 去掉v
+  * el 绑定元素插入到 DOM 中。
+  * */
+  Vue.directive('red', function (el) {
+    el.style.background = 'red';
+    //vm.$el.style.background = 'red';
+  });
+  Vue.directive('blue', {
+    bind: function (el,binding) {
+      console.log(JSON.stringify(binding));
+      console.log(binding.value.color);
+      el.style.background = binding.value.color;
+    }
+  });
+  var vm = new Vue({
+    /*el: '#box',*/
+    data: function () {
+      return {
+        a: 1
+      }
+    },
+  }).$mount('#box');
+</script>
+</body>
+</html>

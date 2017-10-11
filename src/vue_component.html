@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+
+</head>
+<body>
+<div id="globle">
+  <span>1.全局组件</span>
+  <my-component></my-component>
+</div>
+<div id="private">
+  <span>2.局部组件</span>
+  <child-component></child-component>
+  <span>3.prop实例</span>
+  <pub-component message="hello!"></pub-component>
+  <span>4.动态prop</span><br>
+  <input v-model="propModel">
+  <active-component v-bind:message="propModel"></active-component>
+  <br>
+  <span>5.将 v-bind 指令将 todo 传到每一个重复的组件</span> <br>
+  <ul>
+    <item v-for="item in sites" v-bind:todo="item"></item>
+  </ul>
+  <span>6.自定义事件</span><br>
+  <boy-and-girl sayToChild="孩儿们，晚上吃啥？？" v-on:whatSay="whatWord">
+
+  </boy-and-girl>
+  <span>儿子说：{{ boyWords}}</span><br>
+</div>
+
+<script>
+  // 注册全局组件
+  Vue.component('my-component', {
+    template: '<h1>自定义全局组件!</h1>'
+  });
+  /*//组件中声明props
+  Vue.component('pub-component', {
+    //声明props
+    props: ['message'],
+    template: '<span>{{message}}</span>'
+  });*/
+  // 创建根实例
+  new Vue({
+    el: '#globle'
+  });
+  var ve = new Vue({
+    el: '#private',
+    data: {
+      boyWords: '',
+      girlWords: '',
+      propModel: '父组件内容',
+      sites: [
+        {text: 'Runoob'},
+        {text: 'Google'},
+        {text: 'Taobao'}
+      ],
+      total: 0
+    },
+    watch: {
+      'total': function (val, oldVal) {
+        console.log(val, oldVal);
+      }
+    },
+    methods: {
+      whatWord: function (msg1,msg2) {
+        console.log((this.boyWords=="")+":"+(this.girlWords==""));
+        this.boyWords =!(this.boyWords=="")? this.boyWords:msg1;
+        this.girlWords = !(this.girlWords=="")? this.girlWords:msg2;
+      }
+    },
+    components: {
+      'child-component': {
+        template: '<h1>自定义局部组件</h1>'
+      },
+      'pub-component': {
+        props: ['message'],
+        template: '<p>{{message}} component props</p>'
+      },
+      'active-component': {
+        props: {
+          'message': {
+            type: String,
+            required: true
+          }
+        },
+        template: '<p>{{message}}</p>'
+      },
+      'item': {
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+      },
+      'boy-and-girl': {
+        props: ['sayToChild'],
+        <!--子组件将click绑定上了[increment]函数，点击子组件的按钮将会触发位于子组件的increment函数-->
+        template: '<button v-on:click="SayToFather">son</button>',
+        data: function () {
+          return {
+            'boy_msg': '大米？'
+          }
+        },
+        methods: {
+          SayToFather: function () {
+            this.$emit('whatSay', this.boy_msg);
+          }
+        }
+      },
+
+    }
+  });
+
+</script>
+
+</body>
+</html>

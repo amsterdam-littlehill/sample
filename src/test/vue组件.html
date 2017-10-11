@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue组件</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <!--组件:一个大的对象-->
+  <aaa></aaa>
+  <bbb></bbb>
+  <ccc></ccc>
+</div>
+<script>
+  /*
+  * 定义组件的方式：
+  * 1.全局组件
+  * //定义（继承）
+  * Vue.extend({template:})
+  * //绑定
+  * Vue.component('aaa',aaa);
+  * */
+  //继承vue
+  //2.局部组件
+  var aaa = Vue.extend({
+    template: "<h3>我是组件aaa:{{msg}}</h3>",
+    data(){
+      return{
+        msg:'aaa的msg'
+      }
+    }
+  });
+
+
+  var vm = new Vue({
+    data: function () {
+      return {
+        show: true
+      }
+    },
+    components: {
+      'aaa': aaa,
+      'bbb': {
+        data() {
+          return {
+            a: '我是子组件的数据'
+          }
+        },
+        template:'<h3>我是bbb组件->{{a}}</h3>'
+      },
+      'ccc':{
+        template:'<p>我是ccc组件<ddd></ddd></p>',
+        components:{
+          'ddd':{
+            template:'<span>我是ddd组件</span>'
+          }
+        }
+      }
+    },
+    methods: {
+      /*toggle: function () {
+        alert(1);
+      }*/
+      /*es6写法 对象简洁语法形式*/
+      toggle() {
+        this.show = !this.show;
+      }
+    }
+  }).$mount('#box');
+</script>
+</body>
+</html>

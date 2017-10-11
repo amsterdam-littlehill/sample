@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue组件-动态组件</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <p>通过使用保留的
+  <pre>component</pre>
+  元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换：</p>
+  <ul>
+    <li v-for="tab in tabs" >
+      <input type="button" @click="toggleTabs(tab.name)" :value="tab.name">
+    </li>
+  </ul>
+  <transition name="fade">
+    <component :is="a" :class="classObject" keep-alive></component>
+  </transition>
+</div>
+<style>
+  .expand-transition {
+    transition: all .3s ease;
+    height: 30px;
+    padding: 10px;
+    background-color: #eee;
+    overflow: hidden;
+  }
+
+  .expand-enter, .expand-leave {
+    height: 0;
+    padding: 0 10px;
+    opacity: 0;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */
+  {
+    opacity: 0
+  }
+
+  .divBox {
+    height: 100px;
+    width: 100px;
+  }
+
+  .a {
+    background-color: #0099FF;
+  }
+
+  .b {
+    background-color: rebeccapurple;
+  }
+</style>
+
+<script>
+  var vm = new Vue({
+    el: '#box',
+    data() {
+      return {
+        a: 'aaa',
+        tabs: [
+          {
+            name: 'aaa'
+          },
+          {
+            name: 'bbb'
+          }]
+      }
+    },
+    computed: {
+      classObject: function () {
+        return {
+          'a': this.a =='aaa',
+          'b': this.a =='bbb',
+        }
+      }
+    },
+    methods: {
+      toggleTabs: function (tabName) {
+        this.a = tabName;
+      }
+    },
+    components: {
+      'aaa': {
+        template: '<div class="divBox">我是组件a</div>'
+      },
+      'bbb': {
+        template: '<div class="divBox">我是组件b</div>'
+      }
+    }
+  });
+</script>
+</body>
+</html>

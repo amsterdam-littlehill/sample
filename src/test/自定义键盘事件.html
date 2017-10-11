@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue自定义键盘事件</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.js"></script>
+</head>
+<body>
+<div id="box">
+  enter:<input type="text" @keydown.enter="show" v-model="key"><br>
+  ctrl:<input type="text" @keydown.17="show2" v-model="key2"><br>
+  tab:<input type="text" @keydown.tab="show3" v-model="key3"><br>
+  myenter:<input type="text" @keydown.myenter="show4" v-model="key4"><br>
+  <strong>{{ searchIndicator }}</strong><br>
+</div>
+<script>
+
+  document.onkeydown = function () {
+    console.log(event.key + ":" + event.keyCode);//ctrl->17
+  };
+  /*
+  vue1.0
+  Vue.directive('on').keyCodes.ctrl = 17;
+  */
+
+  /*vue2.0*/
+  Vue.config.keyCodes = {
+    mediaPlayPause: 179,
+    // 取而代之的是 kebab-case 且用双引号括起来
+    "tab": 9,
+    "myenter": 9
+  };
+  var vm = new Vue({
+    data: function () {
+      return {
+        key: "",
+        key2: "",
+        key3: "",
+        key4: "",
+        searchQueryIsDirty: false,
+        isCalculating: false,
+      }
+    },
+    computed: {
+      searchIndicator: function () {
+        if (this.isCalculating) {
+          return '⟳ Fetching new results'
+        } else if (this.searchQueryIsDirty) {
+          return '... Typing'
+        } else {
+          return '✓ Done'
+        }
+      }
+    },
+    watch: {
+      key: function () {
+        this.searchQueryIsDirty = true
+        this.expensiveOperation()
+      }, key2: function () {
+        this.searchQueryIsDirty = true
+        this.expensiveOperation()
+      },
+      key3: function () {
+        this.searchQueryIsDirty = true
+        this.expensiveOperation()
+      },
+      key4: function () {
+        this.searchQueryIsDirty = true
+        this.expensiveOperation()
+      }
+    },
+    methods: {
+      expensiveOperation: _.debounce(function () {
+        this.isCalculating = true
+        setTimeout(function () {
+          this.isCalculating = false
+          this.searchQueryIsDirty = false
+        }.bind(this), 1000)
+      }, 500),
+      show: function (event) {
+        this.key = event.key;
+      },
+      show2: function (event) {
+        console.log(event.key);
+        this.key2 = event.key;
+      },
+      show3: function (event) {
+        console.log(event.key);
+        this.key3 = event.key;
+      },
+      show4: function () {
+        this.key4 = event.key;
+      }
+    }
+  }).$mount('#box');
+</script>
+</body>
+</html>

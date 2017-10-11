@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue组件-模板2</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="box">
+  <my-ccc>
+  </my-ccc>
+</div>
+<template id="ccc">
+  <div>
+    <h2 @click="change">标题2->{{msg}}</h2>
+    <ul>
+      <li v-for="val in arr">
+        {{val}}
+      </li>
+    </ul>
+    <ul>
+      <li v-for="(value,key) in data">
+        {{key}}--{{value}}
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+  var test="test globl";
+  var vm = new Vue({
+    el: '#box',
+    data: function () {
+      return {
+        msg: 'my component'
+      }
+    },
+    components: {
+      'my-ccc': {
+        data: function () {
+          return {
+            msg: 'welcome my-ccc',
+            arr: ['apple', 'banana', 'orange'],
+            data: {
+              test:test,
+              accNum: 1234567890,
+              arrearage: 20,
+              lineOfCredit: 30,
+              facility: 10,
+              indate: 7
+            }
+          }
+        },
+        methods: {
+          change() {
+            this.msg = 'changed';
+          }
+        },
+        template: '#ccc'
+      }
+    }
+  });
+</script>
+</body>
+</html>
