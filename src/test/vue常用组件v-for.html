@@ -32,6 +32,12 @@ value in obj
   <ul v-for="(key,value,index) in json">
     <li>{{index}}:{{key}}:{{value}}</li>
   </ul>
+
+  循环重复repeatArr：vue1.0中无法添加重复数据 可使用track-by='$index' <br>
+  <button @click="add">添加</button>
+  <ul v-for="(key,value,index) in repeatArr">
+    <li>{{index}}:{{key}}:{{value}}</li>
+  </ul>
 </div>
 <script>
   /*无需new*/
@@ -40,11 +46,17 @@ value in obj
     data: function () {
       return {
         arr: ['apple', 'orange', 'brane'],
+        repeatArr: ['apple', 'orange', 'brane'],
         json: {
           a: 'apple',
           b: 'orange',
           c: 'banana'
         }
+      }
+    },
+    methods:{
+      add:function () {
+        this.repeatArr.push('tomato');
       }
     }
   });

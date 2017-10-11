@@ -1,15 +1,29 @@
 <template>
   <div class="hello">
-    <h1>{{ msg}}</h1>
+    <p>数据渲染</p>
+    <span>1.使用双大括号，可以理解为jq的 val()</span>
+    <p>{{ msg}}</p>
+    <span>2.使用v-text，获取msg文本，可以理解为jq的 text()</span>
+    <p v-text="msg"></p>
+    <span>3.使用v-html,获取msg html内容，可以理解为jq的 html()</span>
+    <p v-html="msg"></p>
+    <span>使用管道符对{desc}进行过滤处理</span>
+    <p>{{desc | capitalize}}</p>
 
-    <h2>{{desc | capitalize}}</h2>
     <div v-html="html"></div>
     <label for="check"></label><input type="checkbox" v-model="red" id="check">
+    <span>控制模块隐藏</span><br>
+    <button v-on:click="toggleDisplay">点我</button>
+    <span>使用v-if该模块不会渲染</span>
     <div v-if="red">
       <a v-bind:class="{'red':red}" v-bind:href="url">使用v-bind绑定颜色切换</a>
       <button v-on:click="alertMeg">点我</button>
     </div>
-    <p>{{ msg }}</p>
+    <span>使用v-show 该模块仍会渲染，只是隐藏了(通过css设置)</span>
+    <div v-show="red">
+      <a v-bind:class="{'red':red}" v-bind:href="url">使用v-bind绑定颜色切换</a>
+      <button v-on:click="alertMeg">点我</button>
+    </div>
     <input v-model="msg">
     <button v-on:click="reversemsg">反转字符串</button>
     <div>
@@ -85,6 +99,18 @@
       6. 内联样式 1 <a v-bind:style="{color:activeColor,fontSize:fontSize+'px'}">看我</a><br>
       7. 使用样式对象设置class 1 <a v-bind:style="styleObj">看我</a><br>
     </div>
+    <div>
+      测试创建组件1
+      <my-component></my-component>
+      测试创建组件2
+      <my-component2 msg="hello"></my-component2>
+      测试prop
+      <div>
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:message="parentMsg"></child>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,6 +120,7 @@
     name: 'hello',
     data() {
       return {
+        parentMsg:"test active prop",
         msg: 'Welcome to Your Vue.js App',
         msgTemp: 'reverse',
         desc: 'hello world',
@@ -163,6 +190,9 @@
       }
     },
     methods: {
+      toggleDisplay: function() {
+        this.red = (!this.red) ? true : false;
+      },
       computedTest: function () {
         alert(this.message);
         this.message = "setter";
@@ -186,8 +216,21 @@
         value = value.toString();
         return value.charAt(0).toUpperCase() + value.slice(1);
       }
+    },
+    components:{
+      'my-component2':{
+        template:'<div>{{msg}} - {{privateMsg}}</div>',
+        props:['msg'],
+        data:function () {
+          return {
+            privateMsg:'component!'
+          }
+        }
+      }
     }
+
   }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
