@@ -18,7 +18,7 @@ import './permission' // 权限
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
-Vue.prototype.$http = Axios
+Vue.prototype.$axios = Axios
 /* eslint-disable no-new */
 
 new Vue({
