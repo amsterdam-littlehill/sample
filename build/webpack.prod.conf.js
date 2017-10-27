@@ -18,6 +18,9 @@ var webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
+  /**
+   * 在一个单独的文件中产生一个完整且功能完全的文件。这个文件具有最好的source map，但是它会减慢打包速度；
+   */
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,

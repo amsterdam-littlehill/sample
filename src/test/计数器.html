@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<p>全局变量计数</p>
+<p id="demo">0</p>
+<div>
+  <button onclick="myFunction1()">加1</button>
+</div>
+<div>
+  <button onclick="myFunction2()">减1</button>
+</div>
+<div>
+  <button onclick="myFunction3()">结果</button>
+</div>
+<script type="text/javascript">
+  // 局部变量的做法 错误做法，每一次都是1
+  // function add(){
+  // var count = 0;
+  // return count += 1;
+  // }
+
+
+
+  var n = (function () {
+    var n = 0;
+    return {
+      add: function () {
+        debugger;
+        return n += 1;
+      },
+      del: function () {
+        debugger;
+        return n -= 1;
+      },
+      get: function () {
+        debugger;
+        return n;
+      }
+    }
+  }());
+
+  function myFunction1() {
+    document.getElementById("demo").innerHTML = n.add();
+  }
+
+  function myFunction2() {
+    document.getElementById("demo").innerHTML = n.del();
+  }
+
+  function myFunction3() {
+    alert(n.get());
+  }
+</script>
+</body>
+</html>

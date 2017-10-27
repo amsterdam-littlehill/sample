@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-slot2</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+  <style>
+    p {
+      border: 1px solid red;
+      background-color: yellow;
+    }
+
+    h1 {
+      border: 1px solid lawngreen;
+      background-color: #b1b1b1;
+    }
+  </style>
+</head>
+<body>
+<h1>slot</h1>
+<hr>
+<div id="box">
+  <h1>father</h1>
+  <child>
+    <ul slot="ul-slot" v-model="ud">
+      <li v-for="ld in ud">{{ld}}</li>
+    </ul>
+    <ol slot="ol-slot" v-model="od">
+      <li v-for="ld in od">{{ld}}</li>
+    </ol>
+  </child>
+</div>
+<template id="slot-template">
+  <div onclick="removeFather">
+    <h1>child</h1>
+    <slot name="ol-slot">ol-slot</slot>
+    <slot name="ul-slot">ul-slot</slot>
+  </div>
+</template>
+<script>
+  /*slot*/
+  var vm = new Vue({
+    el: '#box',
+    data: function () {
+      return {
+        od: ['1', '2', '3'],
+        ud: ['a', 'b', 'c']
+      }
+    },
+    methods: {
+      removeOd: function (op) {
+        this.od = [];
+      }
+    },
+    components: {
+      'child': {
+        prop: ['fod', 'fud'],
+        methods: {
+          removeFather: function () {
+            this.$emit("removeOd");
+          }
+        },
+        template: '#slot-template'
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

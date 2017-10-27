@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-slot3</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+  <style>
+    .Alert__close {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .Alert--Success {
+      background-color: aquamarine;
+      color: green;
+      width: 30%;
+      text-align: center;
+    }
+
+    .Alert--Warning {
+      background-color: brown;
+      color: #aa0;
+      width: 30%;
+      text-align: center;
+    }
+
+    .Alert--Error {
+      background-color: #aaaa00;
+      color: red;
+      width: 30%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+  <alert type="success">
+    <strong>Success!</strong> Looks good to me!
+  </alert>
+
+  <alert type="warning">
+    <strong>Warning!</strong> Something not good.
+  </alert>
+
+  <alert type="error">
+    <strong>Error!</strong> Oooops...
+  </alert>
+</div>
+<template id="alert-template">
+  <div :class="alertClasses">
+    <slot><strong>Default!</strong> Hello World~</slot>
+    <span class="Alert__close" @click="close">x</span>
+  </div>
+</template>
+<script>
+  /*使用自定义指令*/
+  Vue.directive('blue', {
+    bind: function (el,binding) {
+
+      el.style.background = binding.value.color;
+    }
+  });
+  /*slot*/
+  Vue.component('alert', {
+    template: '#alert-template',
+    props: ['type'],
+    computed: {
+      alertClasses: function () {
+        return {
+          'Alert--Success': this.type === 'success',
+          'Alert--Warning': this.type === 'warning',
+          'Alert--Error': this.type === 'error'
+        }
+      }
+    },
+    methods: {
+      close: function () {
+
+      }
+    },
+    data: function () {
+      return {
+        show: true
+      };
+    }
+  });
+
+  new Vue({
+    el: '#box'
+  });
+
+</script>
+</body>
+</html>

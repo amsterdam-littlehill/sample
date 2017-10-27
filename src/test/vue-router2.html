@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-router2</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <style>
+    ul, li {
+      list-style: none;
+    }
+
+    ul {
+      overflow: hidden;
+    }
+
+    li {
+      float: left;
+      width: 100px;
+    }
+
+    h2 {
+      background-color: #903;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <top-bar></top-bar>
+  <hr>
+  <p> email to:{{email}}</p>
+  <hr>
+  <router-view class="view one"></router-view>
+  <footer-bar></footer-bar>
+</div>
+<template id="top-bar">
+  <nav>
+    <ul>
+      <li v-for="item in NavList">
+        <router-link :to="item.url">{{ item.name }}</router-link>
+      </li>
+    </ul>
+  </nav>
+</template>
+<script>
+  Vue.component('top-bar',{
+    template:"#top-bar"
+  })
+</script>
+</body>
+</html>

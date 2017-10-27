@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>mvvm</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>Hello, <span id="name">bar</span>!</p>
+  <p>I'm <span id="age">poo</span>.</p>
+  <button onclick="_channgDom()">使用Jquery修改dom</button>
+</div>
+<div id="box">
+  <p>Hello, <span v-text="person.name1"></span>!</p>
+  <p>I'm <span v-text="person.name2"></span>.</p>
+  <br>
+  <button @click="changeModel">使用vue操作model</button>
+  <br>
+  <ul>
+    <li v-for="t in boys">
+      <dl>
+        <dt>{{ t.name }}</dt>
+        <dd>{{ t.age }}</dd>
+      </dl>
+    </li>
+  </ul>
+  <input type="text" placeholder="格式：姓名|年龄" v-model="val">
+  <button @click="addBoy">增加</button>
+</div>
+<script>
+  function _channgDom () {
+    var name = 'Homer'
+    var age = 51
+    $('#name').text(name)
+    $('#age').text(age)
+  }
+
+  new Vue({
+    el: '#box',
+    data: function () {
+      return {
+        person: {
+          'name1': 'bar',
+          'name2': 'poo'
+        },
+        val: '',
+        boys: [
+          {
+            name: '小王',
+            age: '18'
+          },
+          {
+            name: '小李',
+            age: '19'
+          },
+          {
+            name: '小张',
+            age: '20'
+          }
+        ]
+      }
+    },
+    methods: {
+      addBoy: function () {
+        let [name, age] = this.val.split('|')
+
+        this.boys.push({
+          'name': name,
+          'age': age
+        })
+
+        this.val = ''
+      },
+      changeModel: function () {
+        this.person = {
+          'name1': '李雷',
+          'name2': '韩梅梅'
+        }
+      }
+    },
+  })
+</script>
+
+</body>
+</html>

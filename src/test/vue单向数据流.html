@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue单向绑定</title>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+  <script src="//unpkg.com/element-ui/lib/index.js"></script>
+  <style>
+    @import url("//unpkg.com/element-ui/lib/theme-default/index.css");
+
+    .gap-space {
+      margin: 15px auto;
+    }
+
+    .btn-width {
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+<!--如果传递的 prop 本身是引用型传递，像对象或者数组，由于数据类型自身特性，无论是什么绑定方式都会是双向绑定-->
+<div id="app">
+  <son-item :table-data="tableData" @change-params="handelChangeParams"></son-item>
+  <script type="x-template" id="son-item">
+    <div class="son-root">
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="date" label="日期" width="180"></el-table-column>
+        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+        <el-table-column prop="address" label="地址" width="180"></el-table-column>
+        <el-table-column label="操作">
+          <template scope="scope">
+            <el-button
+              size="small"
+              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button
+              size="small"
+              type="danger"
+              @click="handleDelete(scope.$index, tableData)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <p class="gap-space"></p>
+      <el-button type="warning" size="small" class="btn-width" @click.prevent="onModifyClick();">Change Reference
+      </el-button>
+      <el-tag type="danger">With Vue Warn</el-tag>
+      <p class="gap-space"></p>
+      <el-button type="success" size="small" class="btn-width" @click.prevent="onUpdateClick">Change Content</el-button>
+      <el-tag type="success">Not Any Warn</el-tag>
+      <!-- Update data through parent component method  -->
+      <p class="gap-space"></p>
+      <el-button type="success" size="small" class="btn-width" @click.prevent="onChangeDataByParentClick">Change
+        Reference
+      </el-button>
+      <el-tag type="success">Not Any Warn</el-tag>
+      <el-tag type="gray">Update data through parent component method</el-tag>
+    </div>
+  </script>
+</div>
+<script>
+  Vue.component('son-item', Vue.extend({
+    template: "#son-item",
+    props: {
+      tableData: Array
+    },
+    methods: {
+      onModifyClick() {
+        // 子组件内部改变了 prop(且是引用类型的引用)，所以 vue 会给出警告。
+        this.tableData = [];
+        // 如果只是像下面这样去改变（原数组引用地址未变），则不会触发 Vue 警告。
+        //this.tableData.shift()
+        console.log('@Child Call onModifyClick Func')
+        console.log(this.tableData)
+      },
+      onUpdateClick() {
+        // 以下操作也变更了  prop数据，但未曾涉及修改及数据内容的引用，所以不会触发Vue warn
+
+        // this.$set(this.tableData[0], 'name', 'jeffjade.com')
+        // this.$set(this.tableData[0], 'date', '2017-03-13')
+
+        // 赋值操作会调用这个属性的set方法，所以会让Vue有所感知，以驱动视图更新。
+        this.tableData[0]['name'] = '晚晴幽草轩'
+        this.tableData[0]['date'] = '2017-03-12'
+        this.tableData[0]['address'] = '中国.深圳.南山'
+
+        //以下这种方式，虽然数据会变更，但不会触发Vue Warn，但也不会出发Vue感知从而更新视图。
+        /*
+        this.tableData[0] = {
+            date: '2017-03-12',
+            name: '晚晴幽草轩',
+            address: '深圳.南山'
+        }
+        console.log(this.tableData)
+        */
+      },
+      onChangeDataByParentClick() {
+        this.$emit('change-params',)
+      },
+      handleEdit(index, row) {
+        console.log(index, row);
+
+      },
+      handleDelete(index, rows) {
+        console.log(index, rows);
+        rows.splice(index, 1);
+      }
+    }
+  }));
+  new Vue({
+    el: "#app",
+    data() {
+      return {
+        tableData: [{
+          date: '2016-05-02',
+          name: 'Jade',
+          address: 'China'
+        }, {
+          date: '2016-05-04',
+          name: 'Rayso',
+          address: 'Cambridge'
+        }, {
+          date: '2016-05-01',
+          name: 'Scarlett',
+          address: 'New York'
+        }],
+        tableData2: [1, 2, 3]
+      }
+    },
+    methods: {
+      handelChangeParams() {
+        this.tableData.shift();
+        console.log('@parent handelChangeParams Func')
+        console.log(this.tableData)
+      },
+      handelChangeParams2(){
+        this.tableData2.shift();
+        console.log('@parent handelChangeParams2 Func');
+        console.log(this.tableData2)
+      }
+    }
+  });
+</script>
+</body>
+</html>
