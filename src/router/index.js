@@ -38,11 +38,19 @@ export const asyncRouterMap = [
     path: '/permission',
     component: Layout,
     redirect: '/permission/index',
-    name: '权限测试',
     icon: 'icon-quanxian',
     meta: {role: ['admin']},
     noDropdown: true,
     children: [{path: 'index', component: _import('permission/index'), name: '权限测试页', meta: {role: ['admin']}}]
+  },
+  {
+    path: '/customer',
+    component: Layout,
+    redirect: '/customer/index',
+    icon: 'icon-quanxian',
+    meta: {role: ['admin']},
+    noDropdown: true,
+    children: [{path: 'index', component: _import('customer/index'), name: '客户定位', meta: {role: ['admin']}}]
   }
 ];
 /*export default new Router({

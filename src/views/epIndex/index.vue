@@ -108,7 +108,7 @@
 
   export default {
     name: 'index',
-    data() {
+    data () {
       return {
         totalCount: 0,
         totalMoney: 0,
@@ -122,12 +122,12 @@
     },
     /*当所有的虚拟dom执行完成后执行mounted方法*/
     mounted: function () {
-      var orderListHeight = document.body.clientHeight;
-      console.log(orderListHeight);
-      document.getElementById("order-list").style.height = orderListHeight + 'px';
+      var orderListHeight = document.body.clientHeight
+      console.log(orderListHeight)
+      document.getElementById('order-list').style.height = orderListHeight + 'px'
     },
     created: function () {
-      axios.get('http://jspang.com/DemoApi/oftenGoods.php')
+      /*this.$http.get('http://jspang.com/DemoApi/oftenGoods.php')
         .then(response => {
           console.log(response);
           this.offerData = response.data;
@@ -136,7 +136,7 @@
           console.log(error);
           alert('网络错误，不能访问')
         });
-      axios.get('http://jspang.com/DemoApi/typeGoods.php')
+      this.$http.get('http://jspang.com/DemoApi/typeGoods.php')
         .then(response => {
           console.log(response);
           //this.oftenGoods=response.data;
@@ -149,66 +149,65 @@
         .catch(error => {
           console.log(error);
           alert('网络错误，不能访问');
-        })
+        })*/
     },
     methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
+      handleClick (tab, event) {
+        console.log(tab, event)
       },
       getTotalMoneyAndCount: function () {
-        this.totalCount = 0;
-        this.totalMoney = 0;
+        this.totalCount = 0
+        this.totalMoney = 0
         this.orderData.forEach((element) => {
-          this.totalCount += element.count;
-          this.totalMoney = this.totalMoney + (element.price * element.count);
-        });
+          this.totalCount += element.count
+          this.totalMoney = this.totalMoney + (element.price * element.count)
+        })
       },
-      checkout() {
+      checkout () {
         if (this.totalCount != 0) {
-          this.orderData = [];
-          this.totalCount = 0;
-          this.totalMoney = 0;
+          this.orderData = []
+          this.totalCount = 0
+          this.totalMoney = 0
           this.$message({
             message: '结账成功，感谢你又为店里出了一份力!',
             type: 'success'
-          });
+          })
 
         } else {
-          this.$message.error('不能空结。老板了解你急切的心情！');
+          this.$message.error('不能空结。老板了解你急切的心情！')
         }
 
       },
-      deleteAllGoods() {
-        this.orderData = [];
-        this.totalCount = 0;
-        this.totalMoney = 0;
+      deleteAllGoods () {
+        this.orderData = []
+        this.totalCount = 0
+        this.totalMoney = 0
       },
-      deleteSingleGoods(goods) {
-        this.orderData = this.orderData.filter(o => o.goodsId != goods.goodsId);
-        this.getTotalMoneyAndCount();
+      deleteSingleGoods (goods) {
+        this.orderData = this.orderData.filter(o => o.goodsId != goods.goodsId)
+        this.getTotalMoneyAndCount()
       },
-      addOrderList(goods) {
+      addOrderList (goods) {
         //商品是否已经存在于订单列表中
-        let isHave = false;
+        let isHave = false
         for (let i = 0; i < this.orderData.length; i++) {
           if (this.orderData[i].goodsId == goods.goodsId) {
-            isHave = true;
+            isHave = true
           }
         }
         //根据判断的值编写业务逻辑
         if (isHave) {
           //存在就进行数量添加
-          let arr = this.orderData.filter(o => o.goodsId == goods.goodsId);
-          arr[0].count++;
+          let arr = this.orderData.filter(o => o.goodsId == goods.goodsId)
+          arr[0].count++
         } else {
-          let newGoods = {goodsId: goods.goodsId, name: goods.goodsName, price: goods.price, count: 1};
-          this.orderData.push(newGoods);
+          let newGoods = {goodsId: goods.goodsId, name: goods.goodsName, price: goods.price, count: 1}
+          this.orderData.push(newGoods)
         }
-        this.getTotalMoneyAndCount();
+        this.getTotalMoneyAndCount()
       }
     },
-    components: {
-    }
+    components: {}
   }
 </script>
 

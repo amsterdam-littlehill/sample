@@ -2,11 +2,13 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar"></hamburger>
+    <levelbar></levelbar>
+    <tab></tab>
     <div class="avatar-wrapper">
       <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
     </div>
-    <el-dropdown class="avatar-container" >
-      <span class="el-dropdown-link">用户名：<el-tag class="userName" type="gray" :name="name" >{{name}}</el-tag></span>
+    <el-dropdown class="avatar-container">
+      <span class="el-dropdown-link">用户名：<el-tag class="userName" type="gray" :name="name">{{name}}</el-tag></span>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
         <router-link class='inlineBlock' to="/">
           <el-dropdown-item>
@@ -64,13 +66,17 @@
 </style>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   import Hamburger from '@/components/common/Hamburger'
+  import Levelbar from '@/components/common/Levelbar'
+  import Tab from '@/components/common/Tab'
 
   export default {
     name: 'header',
     components: {
-      Hamburger
+      Hamburger,
+      Levelbar,
+      Tab
     },
     computed: {
       ...mapGetters([
@@ -80,10 +86,10 @@
       ])
     },
     methods: {
-      toggleSideBar() {
+      toggleSideBar () {
         this.$store.dispatch('ToggleSideBar')
       },
-      logout() {
+      logout () {
         this.$store.dispatch('LogOut').then(() => {
           this.$router.push({path: '/login'})
           //location.reload()// 为了重新实例化vue-router对象 避免bug

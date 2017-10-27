@@ -7,6 +7,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Axios from './utils/fetch'
 import router from './router'
 import store from 'store'
 import ElementUI from 'element-ui'
@@ -17,6 +18,7 @@ import './permission' // 权限
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
+Vue.prototype.$http = Axios
 /* eslint-disable no-new */
 
 new Vue({
