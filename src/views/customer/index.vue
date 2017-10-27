@@ -28,13 +28,13 @@
     methods: {
       getCust () {
         this.loading = true
-        /*this.$http.post(getCust(this.custId)).then((res) => {
-          this.cust_info = res.data
-          this.loading = false
-        }).catch((error) => {
-          console.log('客户定位失败:' + error)
-          this.loading = false
-        })*/
+        /* this.$axios.post(getCust(this.custId)).then((res) => {
+           this.cust_info = res.data
+           this.loading = false
+         }).catch((error) => {
+           console.log('客户定位失败:' + error)
+           this.loading = false
+         })*/
         /*Promise对象*/
         return new Promise((resolve, reject) => {
           getCust(this.custId).then(response => {
