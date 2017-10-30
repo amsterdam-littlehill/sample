@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>其他指令:v-pre&v-cloak&v-once</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>其他指令:v-pre&v-cloak&v-once</p>
+<div id="app">
+  <p>v-pre指令： 跳过这个元素和它的子元素的编译过程，直接输出原始值。就是在标签中加入v-pre就不会输出vue中的data值了。</p>
+  <p v-pre>{{this will not be compiled }}</p>
+  <hr>
+  <p>v-cloak指令：保持在元素上直到关联实例结束编译。和 CSS 规则如 [v-cloak] { display: none } 一起用时，这个指令可以隐藏未编译的 Mustache 标签直到实例准备完毕。</p>
+  <div v-cloak>
+    渲染完成后才显示： {{ message }}
+  </div>
+  <p>v-once指令：只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。</p>
+  <!-- 单个元素 -->
+  <input v-model="message"><br>
+  <span>值会改变: {{message}}</span><br>
+  <span v-once>值不会改变: {{message}}</span>
+  <hr>
+  <!-- 有子元素 -->
+  <div v-once>
+    <h1>comment</h1>
+    <p>{{message}}</p>
+  </div>
+  <hr>
+  <!-- 组件 -->
+  <my-component v-once :comment="message"></my-component>
+  <hr>
+  <!-- `v-for` 指令-->
+  <ul>
+    <li v-for="i in list" v-once>{{i}}</li>
+  </ul>
+</div>
+<style>
+  [v-cloak] {
+    display: none;
+  }
+</style>
+<script>
+  Vue.component('my-component', {
+    template: '\
+    <div v-once>\
+      <h1>模板内容</h1>\
+      ...很多静态内容...\
+    </div>\
+  '
+  })
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        message: 'hello world',
+        list: [1, 2, 3, 4]
+      }
+    }
+  })
+</script>
+</body>
+</html>

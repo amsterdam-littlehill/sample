@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.set全局操作</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>修改外部对象：</p>
+  {{person.name}}-{{person.age}}
+  <br>
+  方法一：
+  <button onclick="add()">增加年龄</button>
+  <br>
+  方法二：
+  <button onclick="add2()">增加年龄</button>
+  <br>
+  方法三：
+  <button onclick="add3()">增加年龄</button>
+  <br>
+  <hr>
+  <p>操作对象数组：</p>
+  <ol>
+    <li v-for="fruit in fruits">{{fruit.ch}}:{{fruit.en}}</li>
+  </ol>
+  <hr>
+  <ul>
+    <li v-for="a in arr">{{a}}</li>
+  </ul>
+  <br>
+  <button onclick="mod()">修改</button>
+  <button onclick="mod1()">修改</button>
+  <button onclick="mod2()">修改</button>
+
+</div>
+
+<script>
+  //方法一
+  function add () {
+    Vue.set(person, 'age', 20)
+  }
+
+  //方法二：
+  function add2 () {
+    vm.person.age++
+  }
+
+  //方法三：
+  function add3 () {
+    person.age++
+  }
+
+  function mod () {
+    Vue.set(fruits, 3, {en: 'peach', ch: '桃子'})
+    Vue.set(arr, 2, 'ddd')
+  }
+
+  function mod1 () {
+    //js无法通过数组下标修改对象
+    //alert('当你利用索引直接设置一个项时，vue不会为我们自动更新')
+    console.log(JSON.stringify(fruits[2]))
+    console.log(JSON.stringify(vm.fruits[2]))
+    vm.fruits[2].ch = '桃子'
+    vm.fruits[2].en = 'peach'
+    console.log(JSON.stringify(fruits[2]))
+    console.log(JSON.stringify(vm.fruits[2]))
+
+    console.log(JSON.stringify(arr[2]))
+    console.log(JSON.stringify(vm.arr[2]))
+    vm.arr[2] = 'eee'
+    console.log(JSON.stringify(arr[2]))
+    console.log(JSON.stringify(vm.arr[2]))
+  }
+
+  function mod2 () {
+    //js无法通过数组下标修改
+    //alert('当你利用索引直接设置一个项时，vue不会为我们自动更新')
+    console.log(JSON.stringify(fruits[2]))
+    console.log(JSON.stringify(vm.fruits[2]))
+    fruits[2].ch = '桃子'
+    fruits[2].en = 'peach'
+    console.log(JSON.stringify(fruits[2]))
+    console.log(JSON.stringify(vm.fruits[2]))
+    console.log(JSON.stringify(arr[2]))
+    console.log(JSON.stringify(vm.arr[2]))
+    arr[2] = 'fff'
+    console.log(JSON.stringify(arr[2]))
+    console.log(JSON.stringify(vm.arr[2]))
+  }
+
+  //1.创建构造器外部数据
+  var person = {
+    name: '小李',
+    age: 18
+  }
+  var fruits = [
+    {
+      en: 'banana',
+      ch: '香蕉'
+    },
+    {
+      en: 'orange',
+      ch: '橘子'
+    },
+    {
+      en: 'apple',
+      ch: '苹果'
+    }]
+  var arr = ['aaa', 'bbb', 'ccc']
+  //2.创建Vue实例，引用外部数据
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      person,
+      fruits,
+      arr
+    }
+  })
+</script>
+</body>
+</html>

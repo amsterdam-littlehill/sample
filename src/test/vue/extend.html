@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>扩展实例扩展器</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<!--类似于组件-->
+<div id="app"></div>
+<app></app>
+<script>
+  /*创建构造器*/
+  var authorExtend = Vue.extend({
+    template: '<p>{{firstName}} - {{lastName}} : {{alias}}</p>',
+    /*data: function () {
+      return {
+        firstName: '张',
+        lastName: '三丰',
+        alias: '张真人'
+      }
+    }*/
+    data() {
+      return {
+        firstName: '张',
+        lastName: '三丰',
+        alias: '张真人'
+      }
+    }
+  })
+  /*挂载到div#app上*/
+  new authorExtend().$mount('#app')
+  new authorExtend().$mount('app')
+</script>
+</body>
+</html>

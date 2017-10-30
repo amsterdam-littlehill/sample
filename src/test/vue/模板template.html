@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模板template</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>创建模板template</p>
+<p>需注意：所有的vm都只能挂载在一个根元素上</p>
+<hr>
+<div id="app"></div>
+<div id="app2"></div>
+<div id="app3"></div>
+<hr>
+<p>以下为引入组件</p>
+<div id="app4">
+  <p>4.字符串</p>
+  <forth></forth>
+</div>
+<div id="app5">
+  <div class="divWarp">
+    <five inline-template>
+      <p>5.内联模板</p>
+      <p>通过给组件添加inline-template属性来告诉Vue，里面的内容就是模板，而不是把它当作是分发内容</p>
+      <p>优点：页面一加载就会渲染，而不用等到JavaScript执行</p>
+    </five>
+  </div>
+</div>
+
+<div id="app6">
+
+</div>
+
+<div id="app7">
+  <p>7.引入单文件组件（单文件组件需要编译）</p>
+</div>
+<template id="second">
+  <div class="divWarp">
+    <p>2.写在 `template`标签里的模板</p>
+    <p>{{msg}}</p>
+    <p>
+      由于IE不支持`template`标签，所以template标签中的内容在IE下会直接显示出来。将模板设为隐藏即可解决这个问题
+    </p>
+    <p>优势：遵循代码结构比字符串方式好排版</p>
+  </div>
+</template>
+<style>
+  .divWarp {
+    border: 1px solid #00ffff;
+  }
+
+  #second, #third {
+    display: none;
+  }
+</style>
+<!---->
+<script type="x-template" id="third">
+  <div class="divWarp">
+    <p>3.script模板</p>
+    <p>{{msg}}</p>
+    <p>优点：可进行外部引用 src=xxx</p>
+    <p>使用`script`标签时，type指定为text/x-template，意在告诉浏览器这不是一段js脚本，浏览器在解析HTML文档时会忽略`script`标签内定义的内容</p>
+  </div>
+</script>
+<script>
+
+  /*内联模板*/
+  Vue.component('five', {})
+  Vue.component('forth', {
+    template: `<div class="divWarp"><p>通过定义全局组件引入</p></div>`
+  })
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        msg: 'hello world'
+      }
+    },
+    template: `<div class="divWarp"><p>1.模板字符串（ES6的模板字符串）:直接在构造器里的template选项</p><p>{{msg}}</p><p>缺陷：如果模板中的html代码人太多，不利于排版和代码维护</p></div>`
+  })
+  var vm2 = new Vue({
+    el: '#app2',
+    data () {
+      return {
+        msg: 'hello world'
+      }
+    },
+    template: '#second'
+  })
+  var vm3 = new Vue({
+    el: '#app3',
+    data () {
+      return {
+        msg: 'hello world'
+      }
+    },
+    template: '#third'
+  })
+  /*渲染函数*/
+  var vm6 = new Vue({
+    el: '#app6',
+    data () {
+      return {
+        msg: 'hello world'
+      }
+    },
+    render (createElement) {
+      return createElement('p', {
+        attrs: {
+          class: 'divWarp',
+        }
+      }, '6.Render functions（渲染函数）')
+    }
+  })
+</script>
+</body>
+</html>
