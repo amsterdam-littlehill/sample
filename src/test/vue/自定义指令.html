@@ -7,35 +7,88 @@
 </head>
 <body>
 <div id="box">
-  <div style="width: 100px;height: 100px" v-red> {{a}}
+  <div style="width: 100px;height: 100px" v-red> {{a}}</div>
+  <div style="width: 100px;height: 100px" v-blue="{color:'blue'}">{{a}}</div>
+  <p>局部组件：</p>
+  <p v-yellow>{{a}}</p>
+  <hr>
+  <div v-size="fontSize" id="demo">
+    {{num}}
   </div>
-  <div style="width: 100px;height: 100px" v-blue="{color:'blue'}"></div>
+  <div>
+    <button @click="add">Add</button>
+  </div>
 </div>
+<button onclick="unbind()">解绑</button>
 <script>
+  /*销毁vue实例,取消和dom的绑定*/
+  function unbind () {
+    vm.$destroy()
+  }
+
   /*自定义指令*/
   /*
   * 指令名称 v-red->名称为red 去掉v
   * el 绑定元素插入到 DOM 中。
   * */
+  /*全局指令*/
   Vue.directive('red', function (el) {
-    el.style.background = 'red';
+    el.style.background = 'red'
     //vm.$el.style.background = 'red';
-  });
+  })
   Vue.directive('blue', {
-    bind: function (el,binding) {
-      console.log(JSON.stringify(binding));
-      console.log(binding.value.color);
-      el.style.background = binding.value.color;
+    bind: function (el, binding) {
+      console.log(JSON.stringify(binding))
+      console.log(binding.value.color)
+      el.style.background = binding.value.color
     }
-  });
+  })
   var vm = new Vue({
     /*el: '#box',*/
     data: function () {
       return {
-        a: 1
+        a: 1,
+        num: 15,
+        fontSize: 15
       }
     },
-  }).$mount('#box');
+    methods: {
+      add: function () {
+        this.num += 1
+        this.fontSize = this.num
+      }
+
+    },
+    /*局部指令*/
+    directives: {
+      yellow: {
+        // 指令的定义
+        //inserted钩子函数
+        inserted: function (el) {
+          el.style.color = 'yellow'
+        }
+      },
+      size: {
+        bind: function () {//被绑定
+          console.log('1 - bind')
+        },
+        inserted: function () {//绑定到节点
+          console.log('2 - inserted')
+        },
+        update: function (el, binding, vnode, oldVnode) {
+          console.log('3 - update')
+          el.style.fontSize = binding.value + 'px'
+        },
+        componentUpdated: function () {//组件更新完成
+          console.log('4 - componentUpdated')
+        },
+        unbind: function () {//解绑
+          console.log('5 - unbind')
+        }
+
+      }
+    }
+  }).$mount('#box')
 </script>
 </body>
 </html>

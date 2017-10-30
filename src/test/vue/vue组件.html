@@ -11,6 +11,8 @@
   <aaa></aaa>
   <bbb></bbb>
   <ccc></ccc>
+  <ddd></ddd>
+  <fff></fff>
 </div>
 <script>
   /*
@@ -22,17 +24,21 @@
   * Vue.component('aaa',aaa);
   * */
   //继承vue
-  //2.局部组件
+
   var aaa = Vue.extend({
-    template: "<h3>我是组件aaa:{{msg}}</h3>",
-    data(){
-      return{
-        msg:'aaa的msg'
+    template: '<h3>我是组件aaa:{{msg}}</h3>',
+    data () {
+      return {
+        msg: 'aaa的msg'
       }
     }
-  });
+  })
+  // 注册组件，传入一个扩展过的构造器
+  Vue.component('ddd', Vue.extend({template: '<h3>我是组件ddd</h3>'}))
+  // 注册组件，传入一个选项对象 (自动调用 Vue.extend)
+  Vue.component('fff', {template: '<h3>我是组件fff</h3>'})
 
-
+  //2.局部组件
   var vm = new Vue({
     data: function () {
       return {
@@ -42,18 +48,18 @@
     components: {
       'aaa': aaa,
       'bbb': {
-        data() {
+        data () {
           return {
             a: '我是子组件的数据'
           }
         },
-        template:'<h3>我是bbb组件->{{a}}</h3>'
+        template: '<h3>我是bbb组件->{{a}}</h3>'
       },
-      'ccc':{
-        template:'<p>我是ccc组件<ddd></ddd></p>',
-        components:{
-          'ddd':{
-            template:'<span>我是ddd组件</span>'
+      'ccc': {
+        template: '<p>我是ccc组件<ddd></ddd></p>',
+        components: {
+          'ddd': {
+            template: '<span>我是ddd组件</span>'
           }
         }
       }
@@ -63,11 +69,11 @@
         alert(1);
       }*/
       /*es6写法 对象简洁语法形式*/
-      toggle() {
-        this.show = !this.show;
+      toggle () {
+        this.show = !this.show
       }
     }
-  }).$mount('#box');
+  }).$mount('#box')
 </script>
 </body>
 </html>
