@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>属性绑定：v-bind</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <a v-bind:href="url">链接</a>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        url
+      }
+    }
+  })
+</script>
+</body>
+</html>

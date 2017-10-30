@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>双向绑定:v-model</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>1.文本</p>
+  <p>您输入的是：{{msg}}</p>
+  <input v-model="msg" placeholder="请输入">
+  <hr>
+  <p style="white-space: pre-line;">2.文本区域</p>
+  <p>您输入的是：{{msg2}}</p>
+  <br>
+  <textarea v-model="msg2" cols="30" rows="10"></textarea>
+  <hr>
+  <p>3.修饰符</p>
+  <p>您输入的是：{{msg3}}</p>
+  延迟加载（离开焦点后渲染）：<input v-model.lazy="msg3" placeholder="延迟加载"><br>
+  输入字符串转为数字。<input type="number" v-model.number="msg3" placeholder="输入字符串转为数字"><br>
+  输入去掉首尾空格。<input v-model.trim="msg3" placeholder="输入去掉首尾空格">
+  <hr>
+  <p>4.复选框</p>
+  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+  <label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="John" v-model="checkedNames">
+  <label for="john">John</label>
+  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+  <label for="mike">Mike</label>
+  <br>
+  <span>Checked names: {{ checkedNames }}</span>
+  <hr>
+  <p>5.单选绑定</p>
+  <input type="radio" id="one" value="男" v-model="sex">
+  <label for="one">男</label>
+  <input type="radio" id="two" value="女" v-model="sex">
+  <label for="one">女</label>
+  <p>您选择的性别是：{{sex}}</p>
+  <hr>
+  <p>6.下拉框绑定</p>
+  <select v-model="selected">
+    <option disabled value="">请选择</option>
+    <option v-for="op in options">{{op}}</option>
+  </select>
+  <p>您选择的是：{{selected}}</p>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        options: ['大米', '面条', '饺子'],
+        msg: '你好',
+        msg2: 'hello world',
+        msg3: '修饰符效果',
+        checkedNames: [],
+        sex: '',
+        selected: ''
+
+      }
+    }
+  })
+</script>
+</body>
+</html>

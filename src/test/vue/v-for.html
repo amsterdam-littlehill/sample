@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>列表渲染:v-for</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<h1>v-for</h1>
+<div id="app">
+  <p>基本用法；v-for:"item in items"</p>
+  <ul>
+    <li v-for="fruit in fruits">{{fruit}}</li>
+  </ul>
+  <p>循环排序</p>
+  <ul>
+    <li v-for="fruit in sortFruits">{{fruit}}</li>
+  </ul>
+  <p>循环对象数组</p>
+  <ul>
+    <li>序号：姓名：年龄</li>
+    <li v-for="(stu,index) in students">
+      {{index+1}}: {{stu.name}}:{{stu.age}}
+    </li>
+  </ul>
+  <p>对象数组排序</p>
+  <ul>
+    <li>序号：姓名：年龄</li>
+    <li v-for="(stu,index) in sortStudentsByKey">
+      {{index+1}}: {{stu.name}}:{{stu.age}}
+    </li>
+  </ul>
+</div>
+<script>
+  function sortString (a, b) {
+    return a.localeCompare(b)
+  }
+
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        fruits: ['apple', 'orange', 'banana', 'pear', 'peach'],
+        students: [
+          {
+            name: '张三',
+            age: 23
+          },
+          {
+            name: '李四',
+            age: 17
+          },
+          {
+            name: '王五',
+            age: 10
+          },
+          {
+            name: '伍六一',
+            age: 13
+          }
+        ]
+      }
+    },
+    computed: {
+      sortFruits: function () {
+        return this.fruits.sort(sortString)
+      },
+      sortStudentsByKey: function () {
+        return this.students.sort((stu1,stu2) => {return stu2.age-stu1.age})
+      }
+    }
+  })
+
+</script>
+</body>
+</html>

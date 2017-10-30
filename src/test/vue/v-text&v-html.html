@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>v-text</title>
+  <title>v-text&v-html</title>
   <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
 </head>
 <body>
@@ -10,6 +10,8 @@
   <p>{{msg}}</p>
   <p v-text="msg"></p>
   <p v-html="msg"></p>
+  <p>输入html</p>
+  <p v-html="msg2"></p>
 </div>
 <script>
   new Vue({
@@ -17,10 +19,10 @@
     data: function () {
       return {
         msg: 'welcome',
+        msg2: '<p>hello world</p>'
       }
-    },
-
-  });
+    }
+  })
 </script>
 </body>
 </html>

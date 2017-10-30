@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>条件渲染</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>模拟用户登录的情形</p>
+<p>1.已登录，显示用户名</p>
+<p>2.未登录，显示‘请登录’</p>
+<div id="app">
+  <div v-show="isLogin">欢迎用户：</div>
+  <div v-if="isLogin">{{username}}</div>
+  <!--在这里遇到一个问题，使用<br>或者<hr>后会不显示按钮-->
+  <button v-if="isLogin" @click="logout">退出登录</button>
+  <button v-else="isLogin" @click="login">登录</button>
+  <!--***** v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。-->
+
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        username: '',
+        isLogin: false
+      }
+    },
+    methods: {
+      login: function () {
+        this.username = '管理员'
+        this.isLogin = true
+      },
+      logout: function () {
+        this.username = ''
+        this.isLogin = false
+      }
+
+    }
+  })
+</script>
+</body>
+</html>
