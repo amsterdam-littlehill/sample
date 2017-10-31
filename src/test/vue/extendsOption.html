@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>扩展选项</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>扩展选项</p>
+<div id="app">
+  {{num}}
+  <p>
+    <button @click="add">加1</button>
+  </p>
+</div>
+<script>
+  var bbb = {
+    created () {
+      console.log('0.扩展选项created钩子函数被调用')
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('0.扩展选项add方法被调用')
+      }
+    }
+
+  }
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        num: 1
+      }
+    },
+    created () {
+      console.log('1.组件created钩子函数被调用')
+    },
+    methods: {
+      add () {
+        console.log('1.组件add方法被调用')
+        return this.num++
+      }
+    },
+    extends:bbb
+  })
+</script>
+</body>
+</html>

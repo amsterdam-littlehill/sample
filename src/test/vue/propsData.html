@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>propsData</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<h1>propsData</h1>
+<header></header>
+<script>
+  /*使用扩展*/
+  var header_a = Vue.extend({
+    template: `<p>{{message}}--{{from}}</p>>`,
+    data () {
+      return {
+        message: 'hello world'
+      }
+    },
+    /*在扩展实例中使用`from`接收*/
+    props: ['from']
+  })
+  /*使用propsData进行之传递*/
+  new header_a({propsData: {from: 'China'}}).$mount('header')
+</script>
+</body>
+</html>

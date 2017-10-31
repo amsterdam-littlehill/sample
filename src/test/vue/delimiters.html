@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>delimiters模板转义</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<style>
+  .divWarp{
+    border: 1px solid #00ff00;
+    width: 100px;
+  }
+</style>
+<body>
+<p>delimiters改变原先模板插值方式{{context}}</p>
+<div id="app1">
+  <div class="divWarp">{{a}}</div>
+
+</div>
+<div id="app2">
+  <div class="divWarp"> ${a}</div>
+
+</div>
+<script>
+  let vm1 = new Vue({
+    el: '#app1',
+    data () {
+      return {
+        a: 1
+      }
+    }
+  })
+  let vm2 = new Vue({
+    el: '#app2',
+    data () {
+      return {
+        a: 1
+      }
+    },
+    delimiters: ['${', '}']
+  })
+</script>
+</body>
+</html>

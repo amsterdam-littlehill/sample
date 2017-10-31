@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>watch 监控数据</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<style>
+  .divWarp {
+    border: 1px solid #00ffff;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 100%;
+  }
+</style>
+<body>
+<div id="app">
+  <div class="divWarp">
+    <p>今日温度：{{temperature}}°C</p>
+    <p>穿衣建议:{{this.suggestion}}</p>
+    <p>
+      <button @click="add">添加温度</button>
+      <button @click="reduce">减少温度</button>
+    </p>
+  </div>
+  <div class="divWarp">
+    <p>a:
+      <button v-text="a" @click="mod('a',$event)"></button>
+    </p>
+    <p>b:
+      <button v-text="b" @click="mod('b',$event)"></button>
+    </p>
+    <p>c:
+      <button v-text="c" @click="mod('c',$event)"></button>
+    </p>
+    <p>d:
+      <button v-text="d" @click="mod('d',$event)"></button>
+    </p>
+
+  </div>
+</div>
+<script>
+  var suggestion = ['T恤短袖', '夹克长裙', '棉衣羽绒服']
+  var app = new Vue({
+    el: '#app',
+    data: {
+      temperature: 14,
+      suggestion: '夹克长裙',
+      a: 1,
+      b: 1,
+      c: 1,
+      d: 1
+    },
+    methods: {
+      add: function () {
+        this.temperature += 5
+      },
+      reduce: function () {
+        this.temperature -= 5
+      },
+      mod: function (num, event) {
+        if (num === 'a') {
+          this.a++
+        } else if (num === 'b') {
+          this.b++
+        } else if (num === 'c') {
+          this.c++
+        } else {
+          this.d++
+        }
+        console.log(event)
+      },
+      someMethod: function (val, oldVal) {
+        console.log('b:' + oldVal + '-->' + val)
+      }
+    },
+    watch: {
+      a: function (val, oldVal) {
+        console.log('a:' + oldVal + '-->' + val)
+      },
+      // 方法名
+      b: 'someMethod',
+      // 深度 watcher
+      c: {
+        handler: function (val, oldVal) {console.log('c:' + oldVal + '-->' + val)},
+        deep: true
+      },
+      // 该回调将会在侦听开始之后被立即调用
+      d: {
+        handler: function (val, oldVal) { console.log('d:' + oldVal + '-->' + val)},
+        immediate: true
+      }
+    }
+  })
+  /*使用实例属性对数据进行监听*/
+  app.$watch('temperature', function (newVal, oldVal) {
+    if (newVal >= 26) {
+      this.suggestion = suggestion[0]
+    } else if (newVal < 26 && newVal >= 0) {
+      this.suggestion = suggestion[1]
+    } else {
+      this.suggestion = suggestion[2]
+    }
+
+  })
+
+</script>
+</body>
+</html>

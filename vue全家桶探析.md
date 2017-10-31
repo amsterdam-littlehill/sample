@@ -1033,3 +1033,400 @@ var vm = new Vue({
   })
 </script>
 ```
+#### 选项
+
+> propsData
+
+在使用全局扩展的方式创建实例时进行数据传递 props。主要作用是方便测试
+
+```html
+
+<header></header>
+<script>
+  /*使用扩展*/
+  var header_a = Vue.extend({
+    template: `<p>{{message}}--{{from}}</p>>`,
+    data () {
+      return {
+        message: 'hello world'
+      }
+    },
+    /*在扩展实例中使用`from`接收*/
+    props: ['from']
+  })
+  /*使用propsData进行之传递*/
+  new header_a({propsData: {from: 'China'}}).$mount('header')
+</script>
+```
+
+> computed计算属性
+
+computed 的作用主要是对原数据进行改造输出
+
+```html
+
+<div id="app">
+        {{newPrice}}
+</div>
+ 
+<script>
+    var app=new Vue({
+        el:'#app',
+        data:{
+            price:100
+        },
+        /*使用computed对原数据进行格式化*/
+        computed:{
+            newPrice:function(){
+                return this.price='￥' + this.price + '元';
+            }
+        }
+    })
+</script>
+```
+
+> methods
+
+methods 将被混入到 Vue 实例中。可以直接通过 VM 实例访问这些方法，或者在指令表达式中使用。方法中的 this 自动绑定为 Vue 实例
+注意不能使用箭头函数，因为箭头函数绑定了父级作用域的上下文，所以 this 将不会按照期望指向 Vue 实例，this.a 将是 undefined
+
+调用方式
+1. 外部通过`vm.event()`调用vue实例方法
+2. 子组件使用`使用 v-on 的修饰符 .native`触发当前实例上的原生方法
+3. 父组件使用`v-on`监听子组件方法，子组件使用`vm.$emit( event, […args] )`触发当前实例上的事件。附加参数都会传给监听器回调
+
+```html
+<div id="app">
+  {{ a }}
+  <p>
+    <!--调用实例上的事件-->
+  <p>1.调用实例方法:
+    <button @click="add">加1</button>
+  </p>
+  <!--含参调用-->
+  <p>2.含参调用：
+    <button @click="add2(2)">加2</button>
+  </p>
+  <!--给组件绑定原生事件-->
+  <p>3.子组件调用父组件原声方法：
+    <btn @click.native="add2(2)"></btn>
+  </p>
+  <!--父组件监听子组件方法，子组件使用$emit触发父组件事件-->
+  <p>4.子组件调用父组件方法：
+    <btn2 @suncalladd="add2"></btn2>
+  </p>
+</div>
+<p>5.外部调用vue实例方法：
+  <button onclick="app.add2(3)">外部加3</button>
+</p>
+<script type="text/javascript">
+
+  var btn = {
+    template: `<button>使用组件加3</button>`,
+  }
+  var btn2 = {
+    template: `<button  v-on:click="sonAdd(3)">使用组件加3</button>`,
+    methods: {
+      sonAdd: function (num) {
+        this.$emit('suncalladd', num)
+      }
+    }
+  }
+  var app = new Vue({
+    el: '#app',
+    data: {
+      a: 1
+    },
+    components: {btn, btn2},
+    methods: {
+      add: function () {
+        this.a++
+      },
+      add2: function (num) {
+        this.a += num
+      }
+
+    }
+  })
+</script>
+```
+
+>watch
+
+`{ [key: string]: string | Function | Object }`
+
+用于观察Vue实例上的数据变动。对应一个对象，键是观察表达式，值是对应回调。值也可以是方法名，或者是对象，包含选项。键的值一旦发生变化，就调用引号里的方法，从而达到change事件监听的效果。
+
+可以在Vue实例中增加`watch`选项，也可在在外部对Vue实例设置监听。`vm.$watch`
+
+```html
+<div id="app">
+  <div class="divWarp">
+    <p>今日温度：{{temperature}}°C</p>
+    <p>穿衣建议:{{this.suggestion}}</p>
+    <p>
+      <button @click="add">添加温度</button>
+      <button @click="reduce">减少温度</button>
+    </p>
+  </div>
+  <div class="divWarp">
+    <p>a:
+      <button v-text="a" @click="mod('a',$event)"></button>
+    </p>
+    <p>b:
+      <button v-text="b" @click="mod('b',$event)"></button>
+    </p>
+    <p>c:
+      <button v-text="c" @click="mod('c',$event)"></button>
+    </p>
+    <p>d:
+      <button v-text="d" @click="mod('d',$event)"></button>
+    </p>
+
+  </div>
+</div>
+<script>
+  var suggestion = ['T恤短袖', '夹克长裙', '棉衣羽绒服']
+  var app = new Vue({
+    el: '#app',
+    data: {
+      temperature: 14,
+      suggestion: '夹克长裙',
+      a: 1,
+      b: 1,
+      c: 1,
+      d: 1
+    },
+    methods: {
+      add: function () {
+        this.temperature += 5
+      },
+      reduce: function () {
+        this.temperature -= 5
+      },
+      mod: function (num, event) {
+        if (num === 'a') {
+          this.a++
+        } else if (num === 'b') {
+          this.b++
+        } else if (num === 'c') {
+          this.c++
+        } else {
+          this.d++
+        }
+        console.log(event)
+      },
+      someMethod: function (val, oldVal) {
+        console.log('b:' + oldVal + '-->' + val)
+      }
+    },
+    watch: {
+      a: function (val, oldVal) {
+        console.log('a:' + oldVal + '-->' + val)
+      },
+      // 方法名
+      b: 'someMethod',
+      // 深度 watcher
+      c: {
+        handler: function (val, oldVal) {console.log('c:' + oldVal + '-->' + val)},
+        deep: true
+      },
+      // 该回调将会在侦听开始之后被立即调用
+      d: {
+        handler: function (val, oldVal) { console.log('d:' + oldVal + '-->' + val)},
+        immediate: true
+      }
+    }
+  })
+  /*使用实例属性对数据进行监听*/
+  app.$watch('temperature', function (newVal, oldVal) {
+    if (newVal >= 26) {
+      this.suggestion = suggestion[0]
+    } else if (newVal < 26 && newVal >= 0) {
+      this.suggestion = suggestion[1]
+    } else {
+      this.suggestion = suggestion[2]
+    }
+
+  })
+
+</script>
+```
+
+> Mixins 混入选项
+
+分发 Vue 组件中可复用功能
+
+用途：
+1. 在已经写好了的构造器，需要增加方法时，这时用混入会减少源代码的污染。
+
+2. 很多地方都会用到的公用方法，用混入的方法可以减少代码量，实现代码重用。
+
+组件和mixins的调用顺序：
+从执行的先后顺序来说，都是混入的先执行，然后构造器里的再执行，需要注意的是，这并不是方法的覆盖，而是被执行了两边。
+
+1. 当组件和混合对象含有同名选项时
+
+  a. 同名钩子函数将混合为一个数组，因此都将被调用，并且混合对象的钩子将在组件自身钩子之前调用
+  
+  b. 值为对象的选项，例如methods,components和directives，将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对。
+  
+2. 全局API混入
+
+  一旦使用全局混合对象，将会影响到所有之后创建的Vue实例。并且执行顺序要前于混入和组件自身的方法。
+
+```html
+<div id="app">
+  {{num}}
+  <p>
+    <button @click="add">加1</button>
+  </p>
+</div>
+<script>
+  /*定义全局混合*/
+  Vue.mixin({
+    updated () {
+      console.log('0.全局混合对象updated钩子函数被调用，数据发生变化')
+    },
+    created () {
+      var myOption = this.$options.myOption
+      if (myOption) {
+        console.log('a:全局混合对象created钩子函数被调用' + myOption)
+      }
+    }
+  })
+  /*创建mixins混合对象*/
+  var addMixins = {
+    /*声明钩子函数*/
+    /*同名钩子函数将混合为一个数组，因此都将被调用，并且混合对象的钩子将在组件自身钩子之前调用*/
+    created () {
+      var myOption = this.$options.myOption
+      if (myOption) {
+        console.log('b:混合对象created钩子函数被调用' + myOption)
+      }
+    },
+    updated () {
+      console.log('1.混合对象created钩子函数被调用，数据发生变化' + this.num)
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('1.混入对象method:add()被调用')
+      }
+    }
+  }
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {num: 1}
+    },
+    created () {
+      var myOption = this.$options.myOption
+      if (myOption) {
+        console.log('c:组件created钩子函数被调用' + myOption)
+      }
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('2.组件method:add()被调用')
+      }
+    },
+    /*组件created钩子函数*/
+    updated () {
+      console.log('2.组件created钩子函数被调用，数据发生变化->' + this.num)
+    },
+    /*添加混入对象*/
+    mixins: [addMixins],
+    myOption: 'hello!'
+  })
+</script>
+```
+> extends
+
+允许声明扩展另一个组件(可以是一个简单的选项对象或构造函数)，而无需使用 Vue.extend。这主要是为了便于扩展单文件组件。
+
+这和 mixins 类似，区别在于，组件自身的选项会比要扩展的源组件具有更高的优先级。
+
+扩展与混入的区别：
+
+1. mixins里面的钩子要比组件本身的优先级高，比如都有created钩子，vue会先调用mixins里面的created然后调用组件本身的created
+
+   extends继承来的方法优先级是在组件本身之后的。
+   
+2. extends只能继承一个,mixins可以多个
+
+```html
+<div id="app">
+  {{num}}
+  <p>
+    <button @click="add">加1</button>
+  </p>
+</div>
+<script>
+  var bbb = {
+    created () {
+      console.log('0.扩展选项created钩子函数被调用')
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('0.扩展选项add方法被调用')
+      }
+    }
+
+  }
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        num: 1
+      }
+    },
+    created () {
+      console.log('1.组件created钩子函数被调用')
+    },
+    methods: {
+      add () {
+        console.log('1.组件add方法被调用')
+        return this.num++
+      }
+    },
+    extends:bbb
+  })
+</script>
+```
+> delimiters模板转义()HTML插值定界符)
+
+默认值：`["{{", "}}"]`
+修改：`['a','b']` a,b为插值符的开始和结尾
+
+```html
+<div id="app1">
+  <div class="divWarp">{{a}}</div>
+
+</div>
+<div id="app2">
+  <div class="divWarp"> ${a}</div>
+
+</div>
+<script>
+  let vm1 = new Vue({
+    el: '#app1',
+    data () {
+      return {
+        a: 1
+      }
+    }
+  })
+  let vm2 = new Vue({
+    el: '#app2',
+    data () {
+      return {
+        a: 1
+      }
+    },
+    delimiters: ['${', '}']
+  })
+</script>
+```

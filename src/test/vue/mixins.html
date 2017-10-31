@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mixins 混入选项</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>mixins-分发 Vue 组件中可复用功能</p>
+<div id="app">
+  {{num}}
+  <p>
+    <button @click="add">加1</button>
+  </p>
+</div>
+<script>
+  /*定义全局混合*/
+  Vue.mixin({
+    updated () {
+      console.log('0.全局混合对象updated钩子函数被调用，数据发生变化')
+    },
+    created () {
+      var myOption = this.$options.myOption
+      if (myOption) {
+        console.log('a:全局混合对象created钩子函数被调用' + myOption)
+      }
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('A.混入对象method:add()被调用')
+      }
+    }
+  })
+  /*创建mixins混合对象*/
+  var addMixins = {
+    /*声明钩子函数*/
+    /*同名钩子函数将混合为一个数组，因此都将被调用，并且混合对象的钩子将在组件自身钩子之前调用*/
+    created () {
+      var myOption = this.$options.myOption
+      if (myOption) {
+        console.log('b:混合对象created钩子函数被调用' + myOption)
+      }
+    },
+    updated () {
+      console.log('1.混合对象created钩子函数被调用，数据发生变化' + this.num)
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('B.混入对象method:add()被调用')
+      }
+    }
+  }
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {num: 1}
+    },
+    created () {
+      var myOption = this.$options.myOption
+      if (myOption) {
+        console.log('c:组件created钩子函数被调用' + myOption)
+      }
+    },
+    methods: {
+      add () {
+        this.num++
+        console.log('C.组件method:add()被调用')
+      }
+    },
+    /*组件created钩子函数*/
+    updated () {
+      console.log('2.组件created钩子函数被调用，数据发生变化->' + this.num)
+    },
+    /*添加混入对象*/
+    mixins: [addMixins],
+    myOption: 'hello!'
+  })
+</script>
+</body>
+</html>

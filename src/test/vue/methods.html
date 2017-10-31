@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>methods</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<h1>methods 选项</h1>
+<div id="app">
+  {{ a }}
+  <p>
+    <!--调用实例上的事件-->
+  <p>1.调用实例方法:
+    <button @click="add">加1</button>
+  </p>
+  <!--含参调用-->
+  <p>2.含参调用：
+    <button @click="add2(2)">加2</button>
+  </p>
+  <!--给组件绑定原生事件-->
+  <p>3.子组件调用父组件原声方法：
+    <btn @click.native="add2(2)"></btn>
+  </p>
+  <!--父组件监听子组件方法，子组件使用$emit触发父组件事件-->
+  <p>4.子组件调用父组件方法：
+    <btn2 @suncalladd="add2"></btn2>
+  </p>
+</div>
+<p>5.外部调用vue实例方法：
+  <button onclick="app.add2(3)">外部加3</button>
+</p>
+<script type="text/javascript">
+
+  var btn = {
+    template: `<button>使用组件加3</button>`,
+  }
+  var btn2 = {
+    template: `<button  v-on:click="sonAdd(3)">使用组件加3</button>`,
+    methods: {
+      sonAdd: function (num) {
+        this.$emit('suncalladd', num)
+      }
+    }
+  }
+  var app = new Vue({
+    el: '#app',
+    data: {
+      a: 1
+    },
+    components: {btn, btn2},
+    methods: {
+      add: function () {
+        this.a++
+      },
+      add2: function (num) {
+        this.a += num
+      }
+
+    }
+  })
+</script>
+</body>
+</html>

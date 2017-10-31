@@ -2,42 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>v-text</title>
+  <title>computed计算属性</title>
   <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+  <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.js"></script>
 </head>
+<style>
+  .divWarp {
+    border: 1px solid #00ff00;
+  }
+</style>
 <body>
 <div id="box">
-  <button v-text="a" @click="addA"></button>
-  <button v-text="b"></button>
+  <div class="divWarp">
+    apple:{{apple}} <br>
+    applePrice:{{applePrice}}<br>
+    <button @click="add">加价</button>
+    <br>
+    改价：<input id="price" type="number" placeholder="请输入价格">
+    <button onclick="setPrice()">确定</button>
+  </div>
+  <div class="divWarp">
+    message:<input type="text" v-model="message"><br>
+    reversedMessage: <input type="text" v-model="reversedMessage">
+
+  </div>
 </div>
+
 <script>
+  function setPrice () {
+    vm.applePrice = $('#price').val()
+  }
+
   var vm = new Vue({
     el: '#box',
     data: function () {
       return {
-        a: 1
+        apple: 1,
+        message: '上海自来水来自海上~'
       }
     },
     methods: {
-      addA: function () {
-        this.a += 1;
+      add: function () {
+        this.apple += 1
       }
     },
     computed: {
-      /* b: function () {
-         return this.a + 1;
-       },*/
-      b: {
+      reversedMessage: {
+        get:
+          function () {
+            return this.message.split('').reverse().join('')
+          },
+        set: function (n) {
+          this.message=n.split('').reverse().join('')
+          return n.split('').reverse().join('')
+        }
+      },
+      applePrice: {
         get: function () {
-          return this.b + 1;
+          return '苹果价格：' + this.apple
         },
         set: function (n) {
-          this.b = n;
+          return this.apple = n
         }
       }
     }
-  });
-  console.log(vm.a);
+  })
+  console.log(vm.applePrice)
 </script>
 </body>
 </html>
