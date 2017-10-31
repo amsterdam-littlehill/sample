@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>实例事件</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  {{msg}}
+  <hr>
+  {{num}} <br>
+  <p>
+    <button @click="add">+</button>
+  </p>
+</div>
+<p>
+  <button onclick="reduce()">-</button>
+</p>
+
+<p>
+  <button onclick="reduceOnce()">-100</button>
+</p>
+
+<p>
+  <button onclick="off()">关闭</button>
+</p>
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        msg: 'vue 实例事件',
+        num: 1
+      }
+    },
+    methods: {
+      add () {
+        this.num++
+      }
+    }
+  })
+  /*使用$on监听reduce事件，方法可执行多次*/
+  vm.$on('reduce', function () {
+    console.log('执行了减法')
+    this.num--
+  })
+  /*使用$once监听reduceOnce事件，只能执行一次*/
+  vm.$once('reduceOnce', function () {
+    console.log('执行了once')
+    this.num -= 100
+  })
+  function off () {
+    /*移除事件*/
+    vm.$off(['reduce', 'reduceOnce'])
+  }
+  function reduceOnce () {
+    vm.$emit('reduceOnce')
+  }
+
+  /*使用$emit触发事件*/
+  function reduce () {
+    vm.$emit('reduce')
+  }
+</script>
+</body>
+</html>

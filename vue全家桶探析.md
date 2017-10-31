@@ -402,7 +402,11 @@ export default {
 
 ### 附录 
 
-#### vue 基础
+### vue 基础
+
+#### 安装Vue的控制台调试工具
+
+![vue-devtools](https://github.com/vuejs/vue-devtools#vue-devtools)是一款基于chrome/Firefox/Safari游览器的插件，用于调试vue应用，这可以极大地提高我们的调试效率。
 
 #### 基础指令
 
@@ -1428,5 +1432,94 @@ methods 将被混入到 Vue 实例中。可以直接通过 VM 实例访问这些
     },
     delimiters: ['${', '}']
   })
+</script>
+```
+> 实例属性
+
+实例就是在构造器外部操作构造器内部的属性选项或者方法。实例暴露了一些有用的实例属性与方法。这些属性与方法都有前缀 $，以便与代理的 data 属性区分
+
+Vue 实例观察的数据对象：  `this.$data`
+Vue 实例使用的根 DOM 元素：  `this.$el`
+当前 Vue 实例的初始化选项： `this.$options`
+当前组件树的根 Vue 实例：`this.$root`
+
+....
+
+> 实例方法
+
+`vm.$mount([el])`:手动地挂载一个未挂载的实例。
+`vm.$destroy()`:完全销毁一个实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器。
+`vm.$forceUpdate()`:强制Vue 实例重新渲染
+`vm.$nextTick([callback])`:将回调延迟到下次 DOM 更新循环之后执行
+
+> 实例事件
+
+`vm.$on(event,callback)`:监听当前实例上的自定义事件，事件由`vm.$emit`触发
+`vm.$once(event,callback)`:监听一个自定义事件，但是只触发一次，在第一次触发之后移除监听器。
+`vm.$of([event,callback])`:移除自定义事件监听器。
+  - 如果没有提供参数，则移除所有的事件监听器；
+  
+  - 如果只提供了事件，则移除该事件所有的监听器；
+  
+  - 如果同时提供了事件与回调，则只移除这个回调的监听器。
+`vm.$emit(event,[...args])`:触发当前实例上的事件。附加参数都会传给监听器回调。s
+
+```html
+<div id="app">
+  {{msg}}
+  <hr>
+  {{num}} <br>
+  <p>
+    <button @click="add">+</button>
+  </p>
+</div>
+<p>
+  <button onclick="reduce()">-</button>
+</p>
+
+<p>
+  <button onclick="reduceOnce()">-100</button>
+</p>
+
+<p>
+  <button onclick="off()">关闭</button>
+</p>
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        msg: 'vue 实例事件',
+        num: 1
+      }
+    },
+    methods: {
+      add () {
+        this.num++
+      }
+    }
+  })
+  /*使用$on监听reduce事件，方法可执行多次*/
+  vm.$on('reduce', function () {
+    console.log('执行了减法')
+    this.num--
+  })
+  /*使用$once监听reduceOnce事件，只能执行一次*/
+  vm.$once('reduceOnce', function () {
+    console.log('执行了once')
+    this.num -= 100
+  })
+  function off () {
+    /*移除事件*/
+    vm.$off(['reduce', 'reduceOnce'])
+  }
+  function reduceOnce () {
+    vm.$emit('reduceOnce')
+  }
+
+  /*使用$emit触发事件*/
+  function reduce () {
+    vm.$emit('reduce')
+  }
 </script>
 ```

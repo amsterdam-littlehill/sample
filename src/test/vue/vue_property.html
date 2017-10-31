@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>实例属性</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+  <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.js"></script>
+</head>
+<body>
+<p>Vue 实例暴露了一些有用的实例属性与方法。这些属性与方法都有前缀 $，以便与代理的 data 属性区分</p>
+<div id="app">
+  {{message}}
+</div>
+<script>
+  let vm = new Vue({
+    customOption: 'foo',
+    el: '#app',
+    data () {
+      return {
+        message: 'hello world'
+      }
+    },
+    methods: {
+      print () {
+        console.log('Vue 实例观察的数据对象：' + this.$data)
+        console.log('Vue 实例使用的根 DOM 元素：' + this.$el)
+        console.log('当前 Vue 实例的初始化选项：' + this.$options)
+        console.log("当前组件树的根 Vue 实例："+this.$root)
+      }
+    },
+    mounted () {
+      /*可引入其他库*/
+      $('#app').html('hello Vue')
+    }
+  })
+</script>
+</body>
+</html>

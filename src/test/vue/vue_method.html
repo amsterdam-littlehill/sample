@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>实例方法</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>Vue实例方法</p>
+<hr>
+<div id="app">
+  <input v-model="msg"><br>
+  {{msg}}<br>
+</div>
+<p>使用`$mount`挂载vue实例：
+  <button onclick="mount()">挂载</button>
+</p>
+<p>使用`$destroy`解挂vue实例：
+  <button onclick="destroy()">解挂</button>
+</p>
+<p>使用`$forceUpdate`更新vue实例：
+  <button onclick="forceUpdate()">更新</button>
+</p>
+<p>使用`$nextTick`数据修改方法：
+  <button onclick="tick()">修改</button>
+</p>
+<script>
+  function tick () {
+    vm.msg = 'update message info '
+    vm.$nextTick(function () {
+      console.log('msg更新完后我被调用了..')
+    })
+  }
+
+  function forceUpdate () {
+    vm.$forceUpdate()
+  }
+
+  function mount () {
+    console.log('vue实例挂载到#app上..')
+    vm.$mount('#app')
+  }
+
+  function destroy () {
+    console.log('解除vue实例挂载..')
+    vm.$destroy()
+  }
+
+  let vm = new Vue({
+    data () {
+      return {
+        msg: 'hello'
+      }
+    },
+    destroyed: function () {
+      console.log('vue实例解除了挂载..')
+    },
+    updated: function () {
+      console.log('vue实例数据被更新..')
+    }
+  })
+  /*挂载vue实例*/
+  vm.$mount('#app')
+</script>
+</body>
+</html>
