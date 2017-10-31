@@ -10,11 +10,11 @@
   <p>通过使用保留的
   <pre>component</pre>
   元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换：</p>
-  <ul>
+  <ol>
     <li v-for="tab in tabs" >
       <input type="button" @click="toggleTabs(tab.name)" :value="tab.name">
     </li>
-  </ul>
+  </ol>
   <transition name="fade">
     <component :is="a" :class="classObject" keep-alive></component>
   </transition>

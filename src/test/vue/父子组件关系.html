@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>父子组件关系</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <panda :who="whoName"></panda>
+</div>
+<script>
+
+  /*子组件*/
+  var cityComponent = {
+    template: `<p style="color:green">{{fromWhere}}</p>`,
+    props: ['fromWhere']
+
+  }
+  /*父组件*/
+  /*在构造器外部声明局部组件*/
+  var pandaComponent = {
+    data () {
+      return {
+        someWhere: '中国四川'
+      }
+    },
+    template: `
+    <div>
+      <p style="color:red">{{who}}</p>
+      来自
+      <city :from-where="someWhere"></city>
+    </div>
+    `,
+    components: {
+      'city': cityComponent,
+    },
+    props: ['who']
+  }
+
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        whoName: '大熊猫'
+      }
+    },
+    components: {
+      'panda': pandaComponent
+    },
+
+  })
+</script>
+</body>
+</html>

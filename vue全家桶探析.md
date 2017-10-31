@@ -396,7 +396,7 @@ export default {
 }
 </script>
 ```
-重新打开页面 http://localhost:8080/,即可看到修改后的结果
+重新打开页面 `http://localhost:8080/`,即可看到修改后的结果
 
 ### 开发方式
 
@@ -856,6 +856,7 @@ new Profile().$mount('#mount-point')
 局部注册的组件只能在组件注册的作用域里进行使用，其他作用域使用无效。
 
 ```html
+
 <div id="app">
       <panda></panda>
     </div>
@@ -870,4 +871,165 @@ new Profile().$mount('#mount-point')
             }
         })
     </script>
+```
+>使用 Prop 传递数据 
+
+props选项就是设置和获取标签上的属性值
+
+1. 定义属性并获取属性值
+
+```html
+<child message="hello!"></child>
+<script >
+Vue.component('child', {
+  // 声明 props
+  props: ['message'],
+  // 就像 data 一样，prop 也可以在模板中使用
+  // 同样也可以在 vm 实例中通过 this.message 来使用
+  template: '<span>{{ message }}</span>'
+})
+</script>
+```
+2. 当使用的不是字符串模板时，camelCase (驼峰式命名) 的 prop 需要转换为相对应的 kebab-case (短横线分隔式命名)：
+
+```html
+<!-- 在 HTML 中使用 kebab-case -->
+<child my-message="hello!"></child>
+<script >
+Vue.component('child', {
+  // 在 JavaScript 中使用 camelCase
+  props: ['myMessage'],
+  template: '<span>{{ myMessage }}</span>'
+})
+</script>
+```
+
+3. 动态属性：使用v-bind将prop绑定到父组件的数据
+
+```html
+<div>
+  <input v-model="someWhere">
+  <br>
+  <panda v-bind:from-where="someWhere"></panda>
+</div>
+<script >
+var vm = new Vue({
+    el: '#app',
+    data(){
+      return{
+        someWhere:'四川成都'
+      }
+    },
+    components: {
+      'panda': {
+        /*子组件接收*/
+        template: `<div style="color:red;">熊猫来自 {{ fromWhere }}.</div>`,
+        /*父组件向子组件传递数据*/
+        props: ['fromWhere']
+      }
+    }
+  })
+</script>
+```
+> 父子组件
+
+```html
+<div id="app">
+  <panda :who="whoName"></panda>
+</div>
+<script>
+
+  /*子组件*/
+  var cityComponent = {
+    template: `<p style="color:green">{{fromWhere}}</p>`,
+    props: ['fromWhere']
+
+  }
+  /*父组件*/
+  /*在构造器外部声明局部组件*/
+  var pandaComponent = {
+    data () {
+      return {
+        someWhere: '中国四川'
+      }
+    },
+    template: `
+    <div>
+      <p style="color:red">{{who}}</p>
+      来自
+      <city :from-where="someWhere"></city>
+    </div>
+    `,
+    components: {
+      'city': cityComponent,
+    },
+    props: ['who']
+  }
+
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        whoName: '大熊猫'
+      }
+    },
+    components: {
+      'panda': pandaComponent
+    },
+
+  })
+</script>
+```
+
+> 动态组件：通过使用保留的 <component> 元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换：
+
+```html
+
+<div id="app">
+  <component v-bind:is="who"></component>
+  <select v-model="that" @change="toggleTabs">
+    <option disabled >请选择</option>
+    <option value="A" selected>A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+  </select>
+</div>
+<script>
+  /*声明组件*/
+  var componentA = {
+    template: `<div style="color: red">I'm componentA</div>`
+  }
+  var componentB = {
+    template: `<div style="color: #1c8de0">I'm componentB</div>`
+  }
+  var componentC = {
+    template: `<div style="color: blue">I'm componentC</div>`
+  }
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        who: 'componentB',
+        that: '',
+      }
+    },
+    methods: {
+      toggleTabs: function () {
+        debugger
+        if (this.that == 'A') {
+          this.who = 'componentA'
+        } else if (this.that == 'B') {
+          this.who = 'componentB'
+        } else if (this.that == 'C') {
+          this.who = 'componentC'
+        } else {
+          this.who = 'componentA'
+        }
+      }
+    },
+    components: {
+      componentA, componentB, componentC
+    }
+  })
+</script>
 ```

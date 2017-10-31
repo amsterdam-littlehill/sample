@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Component标签</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<p>Component标签</p>
+<div id="app">
+  <component v-bind:is="who"></component>
+  <select v-model="that" @change="toggleTabs">
+    <option disabled >请选择</option>
+    <option value="A" selected>A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+  </select>
+</div>
+<script>
+  /*声明组件*/
+  var componentA = {
+    template: `<div style="color: red">I'm componentA</div>`
+  }
+  var componentB = {
+    template: `<div style="color: #1c8de0">I'm componentB</div>`
+  }
+  var componentC = {
+    template: `<div style="color: blue">I'm componentC</div>`
+  }
+  var vm = new Vue({
+    el: '#app',
+    data () {
+      return {
+        who: 'componentB',
+        that: '',
+      }
+    },
+    methods: {
+      toggleTabs: function () {
+        debugger
+        if (this.that == 'A') {
+          this.who = 'componentA'
+        } else if (this.that == 'B') {
+          this.who = 'componentB'
+        } else if (this.that == 'C') {
+          this.who = 'componentC'
+        } else {
+          this.who = 'componentA'
+        }
+      }
+    },
+    components: {
+      componentA, componentB, componentC
+    }
+  })
+</script>
+</body>
+</html>
