@@ -58,7 +58,7 @@
       reduce: function () {
         this.temperature -= 5
       },
-      mod: function (num, event) {
+      mod: function ( num, event ) {
         if (num === 'a') {
           this.a++
         } else if (num === 'b') {
@@ -70,30 +70,30 @@
         }
         console.log(event)
       },
-      someMethod: function (val, oldVal) {
+      someMethod: function ( val, oldVal ) {
         console.log('b:' + oldVal + '-->' + val)
       }
     },
     watch: {
-      a: function (val, oldVal) {
+      a: function ( val, oldVal ) {
         console.log('a:' + oldVal + '-->' + val)
       },
       // 方法名
       b: 'someMethod',
       // 深度 watcher
       c: {
-        handler: function (val, oldVal) {console.log('c:' + oldVal + '-->' + val)},
+        handler: function ( val, oldVal ) {console.log('c:' + oldVal + '-->' + val)},
         deep: true
       },
       // 该回调将会在侦听开始之后被立即调用
       d: {
-        handler: function (val, oldVal) { console.log('d:' + oldVal + '-->' + val)},
+        handler: function ( val, oldVal ) { console.log('d:' + oldVal + '-->' + val)},
         immediate: true
       }
     }
   })
   /*使用实例属性对数据进行监听*/
-  app.$watch('temperature', function (newVal, oldVal) {
+  app.$watch('temperature', function ( newVal, oldVal ) {
     if (newVal >= 26) {
       this.suggestion = suggestion[0]
     } else if (newVal < 26 && newVal >= 0) {

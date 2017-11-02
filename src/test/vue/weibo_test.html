@@ -8,7 +8,7 @@
   <script src="../js/vue-resource.js"></script>
   <script>
     window.onload = function () {
-      var URL = 'weibo.php';
+      var URL = 'weibo.php'
 
       new Vue({
         el: '.znsArea',
@@ -18,7 +18,7 @@
         },
         mounted: function () {
           this.$nextTick(function () {
-            this.getPageData(1);
+            this.getPageData(1)
           })
         },
         methods: {
@@ -30,8 +30,8 @@
                 act: 'add',
                 content: this.t1
               }
-            }).then(function (res) {
-              var json = res.data;
+            }).then(function ( res ) {
+              var json = res.data
               //msgData添加数据
 
               this.msgData.unshift({
@@ -40,34 +40,34 @@
                 acc: 0,
                 ref: 0,
                 id: json.id
-              });
+              })
 
-              this.t1 = '';
-            });
+              this.t1 = ''
+            })
           },
-          getPageData:function (n) {
+          getPageData: function ( n ) {
             this.$http({
               url: URL,
-              data:{
-                act:'get',
-                page:n
+              data: {
+                act: 'get',
+                page: n
               }
-            }).then(function (res) {
-              var arr=res.data;
-              for(var i=0;i<arr.length;i++){
+            }).then(function ( res ) {
+              var arr = res.data
+              for (var i = 0; i < arr.length; i++) {
                 this.msgData.push({
-                  content:arr[i].content,
+                  content: arr[i].content,
                   time: arr[i].time,
                   acc: arr[i].acc,
                   ref: arr[i].ref,
                   id: arr[i].id
                 })
               }
-            });
+            })
           }
         }
-      });
-    };
+      })
+    }
   </script>
 </head>
 

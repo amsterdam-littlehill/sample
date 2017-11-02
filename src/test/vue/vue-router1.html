@@ -25,8 +25,8 @@
 <script>
   /*如使用模块化机制，需导入Vue和VueRouter,要调用 Vue.use(VueRouter)*/
   /*1.定义路由组件*/
-  const Foo = {template: '<div>foo module</div>'};
-  const Bar = {template: '<div>bar module</div>'};
+  const Foo = {template: '<div>foo module</div>'}
+  const Bar = {template: '<div>bar module</div>'}
   // 2. 定义路由
   // 每个路由应该映射一个组件。 其中"component" 可以是
   // 通过 Vue.extend() 创建的组件构造器，
@@ -38,11 +38,11 @@
     {
       path: '/bar', component: Bar
     }
-  ];
+  ]
   // 3. 创建 router 实例，然后传 `routes` 配置
   const router = new VueRouter({
     routes
-  });
+  })
   //4.创建和挂载根实例
   const app = new Vue({
     router

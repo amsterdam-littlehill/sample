@@ -36,22 +36,22 @@
 </div>
 <script>
   /*双向过滤器
-  * model->views
-  * views->model
-  * */
+   * model->views
+   * views->model
+   * */
   Vue.filter('filterHtmlTag', {
-    read: function (input) {
+    read: function ( input ) {
       return input.replace(/<[^<+]>/g, '')
     },
-    write: function (val) {
-      return val;
+    write: function ( val ) {
+      return val
     }
-  });
-  Vue.filter('filterYear', function (input) {
-    var oDate = new Date(input);
-    console.log(input);
-    return oDate.getFullYear() + '-' + (oDate.getMonth() + 1) + '-' + oDate.getDay() + ' ' + oDate.getHours() + ':' + oDate.getMinutes() + ':' + oDate.getSeconds();
-  });
+  })
+  Vue.filter('filterYear', function ( input ) {
+    var oDate = new Date(input)
+    console.log(input)
+    return oDate.getFullYear() + '-' + (oDate.getMonth() + 1) + '-' + oDate.getDay() + ' ' + oDate.getHours() + ':' + oDate.getMinutes() + ':' + oDate.getSeconds()
+  })
   var vm = new Vue({
     el: '#debounce-search-demo',
     data: {
@@ -66,13 +66,13 @@
     },
     computed: {
       filterHtmlTag: function () {
-        alert(this.htmlTag);
+        alert(this.htmlTag)
         return this.htmlTag.replace(/<[^<]+>/g, '')
       },
       filteredUsers: function () {
-        var name = this.name;
-        var self = this;
-        return self.users.filter(function (user) {
+        var name = this.name
+        var self = this
+        return self.users.filter(function ( user ) {
           return user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
         })
       },
@@ -105,7 +105,7 @@
         }.bind(this), 1000)
       }, 500)
     }
-  });
+  })
 </script>
 </body>
 </html>

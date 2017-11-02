@@ -16,10 +16,10 @@
     props: ['sayToChild'],
     methods: {
       BoySayToFather: function () {
-        this.$emit('whatSay', this.boy_msg,'');
+        this.$emit('whatSay', this.boy_msg, '')
       },
       GirlSayToFather: function () {
-        this.$emit('whatSay','',this.girl_msg);
+        this.$emit('whatSay', '', this.girl_msg)
       }
     }
   }

@@ -55,11 +55,11 @@
 <script>
   /*使用自定义指令*/
   Vue.directive('blue', {
-    bind: function (el,binding) {
+    bind: function ( el, binding ) {
 
-      el.style.background = binding.value.color;
+      el.style.background = binding.value.color
     }
-  });
+  })
   /*slot*/
   Vue.component('alert', {
     template: '#alert-template',
@@ -81,13 +81,13 @@
     data: function () {
       return {
         show: true
-      };
+      }
     }
-  });
+  })
 
   new Vue({
     el: '#box'
-  });
+  })
 
 </script>
 </body>

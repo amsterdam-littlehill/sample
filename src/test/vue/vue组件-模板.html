@@ -10,7 +10,7 @@
   <my-aaa></my-aaa>
   <my-bbb></my-bbb>
   <my-ccc msg="hello">
-   <bbb></bbb>
+    <bbb></bbb>
   </my-ccc>
 </div>
 <!--
@@ -34,9 +34,9 @@ html不会渲染里面的内容，也就是里面的html不会展示出来
 <script>
   var vm = new Vue({
     el: '#box',
-    data:function () {
+    data: function () {
       return {
-        msg:'my component'
+        msg: 'my component'
       }
     },
     components: {
@@ -47,8 +47,8 @@ html不会渲染里面的内容，也就是里面的html不会展示出来
           }
         },
         methods: {
-          change() {
-            this.msg = 'changed';
+          change () {
+            this.msg = 'changed'
           }
         },
         template: '#aaa'
@@ -57,33 +57,33 @@ html不会渲染里面的内容，也就是里面的html不会展示出来
         data: function () {
           return {
             msg: 'welcome my-bbb',
-            arr:['apple','banana','orange']
+            arr: ['apple', 'banana', 'orange']
           }
         },
         methods: {
-          change() {
-            this.msg = 'changed';
+          change () {
+            this.msg = 'changed'
           }
         },
         template: '#bbb'
       },
-      'my-ccc':{
+      'my-ccc': {
         data: function () {
           return {
             msg: 'welcome my-bbb',
-            arr:['apple','banana','orange']
+            arr: ['apple', 'banana', 'orange']
           }
         },
         methods: {
-          change() {
-            this.msg = 'changed';
+          change () {
+            this.msg = 'changed'
           }
         },
-        props:['msg'],
+        props: ['msg'],
         template: '#bbb'
       }
     }
-  });
+  })
 </script>
 </body>
 </html>

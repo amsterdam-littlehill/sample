@@ -48,8 +48,8 @@
       }
     },
     methods: {
-      removeOd: function (op) {
-        this.od = [];
+      removeOd: function ( op ) {
+        this.od = []
       }
     },
     components: {
@@ -57,13 +57,13 @@
         prop: ['fod', 'fud'],
         methods: {
           removeFather: function () {
-            this.$emit("removeOd");
+            this.$emit('removeOd')
           }
         },
         template: '#slot-template'
       }
     }
-  });
+  })
 
 </script>
 </body>

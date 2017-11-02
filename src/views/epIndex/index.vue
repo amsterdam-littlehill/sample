@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="index">
-      <!--栅栏-->
+      <!--  栅栏-->
       <el-row>
         <el-col :xs="12" :sm="8" :md="10" :lg="14">
           <div class="grid-content bg-purple" id="order-list">
@@ -13,7 +13,7 @@
                   <el-table-column prop="count" label="数量" width="70"></el-table-column>
                   <el-table-column prop="price" label="单价" width="70"></el-table-column>
                   <el-table-column label="操作" width="120" fixed="right">
-                    <template scope="scope">
+                    <template slot-scope="scope">
                       <el-button type="primary" size="small" icon="delete"
                                  @click="deleteSingleGoods(scope.row)"></el-button>
                       <el-button type="primary" size="small" class="el-icon-plus"
@@ -103,8 +103,6 @@
   </div>
 </template>
 <script>
-  /*引入axios*/
-  import axios from 'axios'
 
   export default {
     name: 'index',
@@ -120,51 +118,26 @@
         type3Goods: []
       }
     },
-    /*当所有的虚拟dom执行完成后执行mounted方法*/
+    /*  当所有的虚拟dom执行完成后执行mounted方法*/
     mounted: function () {
       var orderListHeight = document.body.clientHeight
       console.log(orderListHeight)
       document.getElementById('order-list').style.height = orderListHeight + 'px'
     },
-    created: function () {
-      /*this.$http.get('http://jspang.com/DemoApi/oftenGoods.php')
-        .then(response => {
-          console.log(response);
-          this.offerData = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-          alert('网络错误，不能访问')
-        });
-      this.$http.get('http://jspang.com/DemoApi/typeGoods.php')
-        .then(response => {
-          console.log(response);
-          //this.oftenGoods=response.data;
-          this.type0Goods = response.data[0];
-          this.type1Goods = response.data[1];
-          this.type2Goods = response.data[2];
-          this.type3Goods = response.data[3];
-
-        })
-        .catch(error => {
-          console.log(error);
-          alert('网络错误，不能访问');
-        })*/
-    },
     methods: {
-      handleClick (tab, event) {
+      handleClick ( tab, event ) {
         console.log(tab, event)
       },
       getTotalMoneyAndCount: function () {
         this.totalCount = 0
         this.totalMoney = 0
-        this.orderData.forEach((element) => {
+        this.orderData.forEach(( element ) => {
           this.totalCount += element.count
           this.totalMoney = this.totalMoney + (element.price * element.count)
         })
       },
       checkout () {
-        if (this.totalCount != 0) {
+        if (this.totalCount !== 0) {
           this.orderData = []
           this.totalCount = 0
           this.totalMoney = 0
@@ -176,32 +149,31 @@
         } else {
           this.$message.error('不能空结。老板了解你急切的心情！')
         }
-
       },
       deleteAllGoods () {
         this.orderData = []
         this.totalCount = 0
         this.totalMoney = 0
       },
-      deleteSingleGoods (goods) {
-        this.orderData = this.orderData.filter(o => o.goodsId != goods.goodsId)
+      deleteSingleGoods ( goods ) {
+        this.orderData = this.orderData.filter(o => o.goodsId !== goods.goodsId)
         this.getTotalMoneyAndCount()
       },
-      addOrderList (goods) {
-        //商品是否已经存在于订单列表中
+      addOrderList ( goods ) {
+        //  商品是否已经存在于订单列表中
         let isHave = false
         for (let i = 0; i < this.orderData.length; i++) {
-          if (this.orderData[i].goodsId == goods.goodsId) {
+          if (this.orderData[i].goodsId === goods.goodsId) {
             isHave = true
           }
         }
-        //根据判断的值编写业务逻辑
+        //  根据判断的值编写业务逻辑
         if (isHave) {
-          //存在就进行数量添加
-          let arr = this.orderData.filter(o => o.goodsId == goods.goodsId)
+          //  存在就进行数量添加
+          const arr = this.orderData.filter(o => o.goodsId === goods.goodsId)
           arr[0].count++
         } else {
-          let newGoods = {goodsId: goods.goodsId, name: goods.goodsName, price: goods.price, count: 1}
+          const newGoods = {goodsId: goods.goodsId, name: goods.goodsName, price: goods.price, count: 1}
           this.orderData.push(newGoods)
         }
         this.getTotalMoneyAndCount()
@@ -211,7 +183,7 @@
   }
 </script>
 
-<style scoped="scope">
+<style scoped="scope" rel="stylesheet/scss" lang="scss">
   .index {
     float: left;
     width: 80%;
@@ -229,12 +201,13 @@
   .el-row {
     margin-bottom: 20px;
 
-  &
-  :last-child {
-    margin-bottom: 0;
-  }
+    &
+    :last-child {
+      margin-bottom: 0;
+    }
 
   }
+
   .el-col {
     border-radius: 4px;
   }

@@ -17,27 +17,27 @@
 <script>
 
   document.onkeydown = function () {
-    console.log(event.key + ":" + event.keyCode);//ctrl->17
-  };
+    console.log(event.key + ':' + event.keyCode)//ctrl->17
+  }
   /*
-  vue1.0
-  Vue.directive('on').keyCodes.ctrl = 17;
-  */
+   vue1.0
+   Vue.directive('on').keyCodes.ctrl = 17;
+   */
 
   /*vue2.0*/
   Vue.config.keyCodes = {
     mediaPlayPause: 179,
     // 取而代之的是 kebab-case 且用双引号括起来
-    "tab": 9,
-    "myenter": 9
-  };
+    'tab': 9,
+    'myenter': 9
+  }
   var vm = new Vue({
     data: function () {
       return {
-        key: "",
-        key2: "",
-        key3: "",
-        key4: "",
+        key: '',
+        key2: '',
+        key3: '',
+        key4: '',
         searchQueryIsDirty: false,
         isCalculating: false,
       }
@@ -78,22 +78,22 @@
           this.searchQueryIsDirty = false
         }.bind(this), 1000)
       }, 500),
-      show: function (event) {
-        this.key = event.key;
+      show: function ( event ) {
+        this.key = event.key
       },
-      show2: function (event) {
-        console.log(event.key);
-        this.key2 = event.key;
+      show2: function ( event ) {
+        console.log(event.key)
+        this.key2 = event.key
       },
-      show3: function (event) {
-        console.log(event.key);
-        this.key3 = event.key;
+      show3: function ( event ) {
+        console.log(event.key)
+        this.key3 = event.key
       },
       show4: function () {
-        this.key4 = event.key;
+        this.key4 = event.key
       }
     }
-  }).$mount('#box');
+  }).$mount('#box')
 </script>
 </body>
 </html>

@@ -118,9 +118,9 @@
 
   export default {
     name: 'hello',
-    data() {
+    data () {
       return {
-        parentMsg:"test active prop",
+        parentMsg: 'test active prop',
         msg: 'Welcome to Your Vue.js App',
         msgTemp: 'reverse',
         desc: 'hello world',
@@ -141,7 +141,7 @@
           color: 'black',
           fontSize: '25px'
         },
-        url: "www.baidu.com",
+        url: 'www.baidu.com',
         checked: true,
         picked: '',
         selected: '',
@@ -155,19 +155,19 @@
         //迭代
         ops: [
           {
-            name: "小王",
+            name: '小王',
             age: 18,
-            addr: "上海"
+            addr: '上海'
           },
           {
-            name: "小张",
+            name: '小张',
             age: 16,
-            addr: "北京"
+            addr: '北京'
           },
           {
-            name: "小李",
+            name: '小李',
             age: 20,
-            addr: "云南"
+            addr: '云南'
           }
         ]
       }
@@ -178,52 +178,52 @@
       },
       message: {
         get: function () {
-          alert("getter:" + this.msgTemp);
+          alert('getter:' + this.msgTemp)
           return this.msgTemp.split('').reverse().join('')
         },
-        set: function (value) {
-          alert("setter before:" + value);
-          this.msgTemp = value;
-          alert("setter after:" + this.msgTemp);
+        set: function ( value ) {
+          alert('setter before:' + value)
+          this.msgTemp = value
+          alert('setter after:' + this.msgTemp)
 
         }
       }
     },
     methods: {
-      toggleDisplay: function() {
-        this.red = (!this.red) ? true : false;
+      toggleDisplay: function () {
+        this.red = (!this.red) ? true : false
       },
       computedTest: function () {
-        alert(this.message);
-        this.message = "setter";
+        alert(this.message)
+        this.message = 'setter'
       },
       alertMeg: function () {
-        alert("使用v-on:click绑定的点击事件");
+        alert('使用v-on:click绑定的点击事件')
       },
       reversemsg: function () {
         this.msg = this.msg.split('').reverse().join('')
       },
       checkObjBind: function () {
-        alert("目前选择的值" + this.num);
-        this.num = 2;
-        alert("操作vue对象修改为2");
+        alert('目前选择的值' + this.num)
+        this.num = 2
+        alert('操作vue对象修改为2')
       }
     },
     //过滤器
     filters: {
-      capitalize: function (value) {
-        if (!value) return '';
-        value = value.toString();
-        return value.charAt(0).toUpperCase() + value.slice(1);
+      capitalize: function ( value ) {
+        if (!value) return ''
+        value = value.toString()
+        return value.charAt(0).toUpperCase() + value.slice(1)
       }
     },
-    components:{
-      'my-component2':{
-        template:'<div>{{msg}} - {{privateMsg}}</div>',
-        props:['msg'],
-        data:function () {
+    components: {
+      'my-component2': {
+        template: '<div>{{msg}} - {{privateMsg}}</div>',
+        props: ['msg'],
+        data: function () {
           return {
-            privateMsg:'component!'
+            privateMsg: 'component!'
           }
         }
       }

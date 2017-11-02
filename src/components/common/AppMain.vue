@@ -9,8 +9,8 @@
   export default {
     name: 'AppMain',
     computed: {
-      key() {
-        console.log(this.$route.name);
+      key () {
+        console.log(this.$route.name)
         return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
       }
     }

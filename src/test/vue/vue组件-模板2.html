@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-  var test="test globl";
+  var test = 'test globl'
   var vm = new Vue({
     el: '#box',
     data: function () {
@@ -41,7 +41,7 @@
             msg: 'welcome my-ccc',
             arr: ['apple', 'banana', 'orange'],
             data: {
-              test:test,
+              test: test,
               accNum: 1234567890,
               arrearage: 20,
               lineOfCredit: 30,
@@ -51,14 +51,14 @@
           }
         },
         methods: {
-          change() {
-            this.msg = 'changed';
+          change () {
+            this.msg = 'changed'
           }
         },
         template: '#ccc'
       }
     }
-  });
+  })
 </script>
 </body>
 </html>

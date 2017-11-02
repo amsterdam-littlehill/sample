@@ -28,7 +28,7 @@ export default {
   loginByUsername: config => {
     debugger
     const {username} = JSON.parse(config.body)
-
+    
     return userMap[username]
   },
   getUserInfo: config => {

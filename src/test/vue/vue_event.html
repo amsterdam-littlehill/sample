@@ -50,10 +50,12 @@
     console.log('执行了once')
     this.num -= 100
   })
+
   function off () {
     /*移除事件*/
     vm.$off(['reduce', 'reduceOnce'])
   }
+
   function reduceOnce () {
     vm.$emit('reduceOnce')
   }

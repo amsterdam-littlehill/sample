@@ -1,5 +1,6 @@
 @import './btn.scss';
 @import './mixin.scss';
+
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -110,7 +111,7 @@ code {
 }
 
 .editor-container .CodeMirror {
-  height: 100%!important;
+  height: 100% !important;
 }
 
 .text-center {
@@ -201,7 +202,7 @@ code {
   .el-checkbox {
     margin: 0 20px 15px 0;
   }
-  .el-checkbox+.el-checkbox {
+  .el-checkbox + .el-checkbox {
     margin-left: 0px;
   }
 }
@@ -260,7 +261,7 @@ code {
   }
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .github-corner:hover .octo-arm {
     animation: none
   }

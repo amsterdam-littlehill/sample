@@ -31,11 +31,13 @@
           <template scope="scope">
             <el-button
               size="small"
-              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              @click="handleEdit(scope.$index, scope.row)">编辑
+            </el-button>
             <el-button
               size="small"
               type="danger"
-              @click="handleDelete(scope.$index, tableData)">删除</el-button>
+              @click="handleDelete(scope.$index, tableData)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -61,20 +63,20 @@
 </style>
 <script>
   Vue.component('son-item', Vue.extend({
-    template: "#son-item",
+    template: '#son-item',
     props: {
       tableData: Array
     },
     methods: {
-      onModifyClick() {
+      onModifyClick () {
         // 子组件内部改变了 prop(且是引用类型的引用)，所以 vue 会给出警告。
-        this.tableData = [];
+        this.tableData = []
         // 如果只是像下面这样去改变（原数组引用地址未变），则不会触发 Vue 警告。
         //this.tableData.shift()
         console.log('@Child Call onModifyClick Func')
         console.log(this.tableData)
       },
-      onUpdateClick() {
+      onUpdateClick () {
         // 以下操作也变更了  prop数据，但未曾涉及修改及数据内容的引用，所以不会触发Vue warn
 
         // this.$set(this.tableData[0], 'name', 'jeffjade.com')
@@ -87,30 +89,30 @@
 
         //以下这种方式，虽然数据会变更，但不会触发Vue Warn，但也不会出发Vue感知从而更新视图。
         /*
-        this.tableData[0] = {
-            date: '2017-03-12',
-            name: '晚晴幽草轩',
-            address: '深圳.南山'
-        }
-        console.log(this.tableData)
-        */
+         this.tableData[0] = {
+         date: '2017-03-12',
+         name: '晚晴幽草轩',
+         address: '深圳.南山'
+         }
+         console.log(this.tableData)
+         */
       },
-      onChangeDataByParentClick() {
+      onChangeDataByParentClick () {
         this.$emit('change-params',)
       },
-      handleEdit(index, row) {
-        console.log(index, row);
+      handleEdit ( index, row ) {
+        console.log(index, row)
 
       },
-      handleDelete(index, rows) {
-        console.log(index, rows);
-        rows.splice(index, 1);
+      handleDelete ( index, rows ) {
+        console.log(index, rows)
+        rows.splice(index, 1)
       }
     }
-  }));
+  }))
   new Vue({
-    el: "#app",
-    data() {
+    el: '#app',
+    data () {
       return {
         tableData: [{
           date: '2016-05-02',
@@ -129,18 +131,18 @@
       }
     },
     methods: {
-      handelChangeParams() {
-        this.tableData.shift();
+      handelChangeParams () {
+        this.tableData.shift()
         console.log('@parent handelChangeParams Func')
         console.log(this.tableData)
       },
-      handelChangeParams2(){
-        this.tableData2.shift();
-        console.log('@parent handelChangeParams2 Func');
+      handelChangeParams2 () {
+        this.tableData2.shift()
+        console.log('@parent handelChangeParams2 Func')
         console.log(this.tableData2)
       }
     }
-  });
+  })
 </script>
 </body>
 </html>

@@ -3,12 +3,12 @@
 </template>
 <script>
   export default {
-    name:'post',
+    name: 'post',
     watch: {
       /*to 和 from 都是 路由信息对象*/
-      '$route' (to, from) {
-        console.log(to);
-        console.log(from);
+      '$route' ( to, from ) {
+        console.log(to)
+        console.log(from)
       }
     }
   }

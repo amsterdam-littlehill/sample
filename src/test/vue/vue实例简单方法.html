@@ -17,18 +17,21 @@
         a: 1
       }
     },
-    aa:1,/*自定义属性*/
-    show:function () {
+    aa: 1, /*自定义属性*/
+    show: function () {
       alert('调用自定义方法')
     }
-  }).$mount('#box');
+  }).$mount('#box')
   /*手动挂载vue实例到指定元素*/
-  console.log(vm.$el);
-  vm.$el.style.background = 'red';
-  console.log(vm.$data.a);
-  console.log(vm.$options.aa)/*访问自定义属性*/
-  vm.$options.show();/*调用自定义方法*/
-  console.log(vm.$log());/*查询数据状态*/
+  console.log(vm.$el)
+  vm.$el.style.background = 'red'
+  console.log(vm.$data.a)
+  console.log(vm.$options.aa)
+  /*访问自定义属性*/
+  vm.$options.show()
+  /*调用自定义方法*/
+  console.log(vm.$log())
+  /*查询数据状态*/
 </script>
 </body>
 </html>

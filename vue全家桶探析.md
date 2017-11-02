@@ -294,9 +294,11 @@ axios.post('/user', {
 ####  vuex
 
 
-### 环境搭建
+### CLI环境搭建
 
 ***&#160; &#160; &#160; &#160;CLI 工具假定用户对 Node.js 和相关构建工具有一定程度的了解。如不了解，可先使用`<script>`方式引入vue库。***
+  
+***&#160; &#160; &#160; &#160;安装vue-cli的前提是你已经安装了npm，安装npm你可以直接下载node的安装包进行安装。***
   
 > **全局安装 vue-cli，如果已经安装可以忽略**
 
@@ -305,6 +307,21 @@ axios.post('/user', {
 > **创建一个基于 webpack 模板的新项目,在指定的路径下执行如下指令**
     
    `$ vue init webpack sample`
+    
+    vue init <template-name> <project-name>
+
+    <template-name>：表示模板名称，vue-cli官方为我们提供了5种模板，
+
+    webpack-一个全面的webpack+vue-loader的模板，功能包括热加载，linting,检测和CSS扩展。
+    
+    webpack-simple-一个简单webpack+vue-loader的模板，不包含其他功能，让你快速的搭建vue的开发环境。
+    
+    browserify-一个全面的Browserify+vueify 的模板，功能包括热加载，linting,单元检测。
+    
+    browserify-simple-一个简单Browserify+vueify的模板，不包含其他功能，让你快速的搭建vue的开发环境。
+    
+    simple-一个最简单的单页应用模板。
+    
 
    [image](C:\Users\amsterdam\Desktop\vue-cli.png) 
 
@@ -323,41 +340,54 @@ axios.post('/user', {
 > **安装依赖，进入新建的项目目录，即可执行安装**
     
     ```
-    $ cd sample
-    $ npm install
-    $ npm run dev
+    $ cd sample   //进入项目根目录
+    $ npm install //安装我们的项目依赖包
+    $ npm run dev //开发模式下运行我们的程序
     ```
 ### 文件配置
 
 ***可根据项目需要自行调整目录结构***
 
 ```
-  ├── build                      // 构建相关  
+  ├── build                      // webpack构建相关  
+  |   |-- build.js                     // 生产环境构建代码
+  |   |-- check-version.js             // 检查node、npm等版本
+  |   |-- dev-client.js                // 热重载相关
+  |   |-- dev-server.js                // 构建本地服务器
+  |   |-- utils.js                     // 构建工具相关
+  |   |-- webpack.base.conf.js         // webpack基础配置
+  |   |-- webpack.dev.conf.js          // webpack开发环境配置
+  |   |-- webpack.prod.conf.js         // webpack生产环境配置
   ├── config                     // 配置相关
-  ├── dist                       // 打包目录
+  |   |-- dev.env.js                   // 开发环境变量
+  |   |-- index.js                     // 项目一些配置变量
+  |   |-- prod.env.js                  // 生产环境变量
+  |   |-- test.env.js                  // 测试环境变量
+  ├── dist                       // webpack build打包目录
   ├── node_modules               // npm 加载的项目依赖模块
   ├── src                        // 源代码
   │   ├── api                    // 所有请求
   │   ├── assets                 // 主题 字体等静态资源
   │   ├── components             // 全局公用组件
-  │   ├── directive              // 全局指令
-  │   ├── filtres                // 全局filter
-  │   ├── mock                   // mock测试数据
-  │   ├── router                 // 路由
-  │   ├── store                  // 全局store管理（vuex）
-  │   ├── styles                 // 全局样式
-  │   ├── test                   // 测试调试
-  │   ├── utils                  // 全局公用方法
-  │   ├── view                   // view
+  │   ├── directive              // 全局指令 *
+  │   ├── filtres                // 全局filter *
+  │   ├── mock                   // mock测试数据 *
+  │   ├── router                 // 路由 *
+  │   ├── store                  // 全局store管理（vuex） *
+  │   ├── styles                 // 全局样式 *
+  │   ├── test                   // 测试调试 *
+  │   ├── utils                  // 全局公用方法 *
+  │   ├── view                   // view *
   │   ├── App.vue                // 入口页面
   │   └── main.js                // 入口 加载组件 初始化等
   ├── static                     // 静态资源目录
-  ├── .babelrc                   // babel-loader 配置
+  ├── .babelrc                   // ES6语法编译配置 babel-loader 
   ├── eslintrc.js                // eslint 配置项
+  |── .editorconfig              // 定义代码格式
   ├── .gitignore                 // git 忽略项
   ├── favicon.ico                // favicon图标
-  ├── index.html                 // html模板
-  └── package.json               // package.json
+  ├── index.html                 // html模板 项目入口
+  └── package.json               // package.json 项目基本信息
 ```
 
 修改src/App.vue

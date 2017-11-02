@@ -1,7 +1,7 @@
 <!--公用头部-->
 <template>
   <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar"></hamburger>
+    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <levelbar></levelbar>
     <tab></tab>
     <div class="avatar-wrapper">
@@ -41,7 +41,7 @@
       margin-top: 5px;
       display: inline-block;
       position: absolute;
-      right: 150px;
+      right: 170px;
       .user-avatar {
         width: 40px;
         height: 40px;
@@ -67,7 +67,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Hamburger from '@/components/common/Hamburger'
+  import Hamburger from '@/components/Hamburger/'
   import Levelbar from '@/components/common/Levelbar'
   import Tab from '@/components/common/Tab'
 
@@ -92,7 +92,7 @@
       logout () {
         this.$store.dispatch('LogOut').then(() => {
           this.$router.push({path: '/login'})
-          //location.reload()// 为了重新实例化vue-router对象 避免bug
+          //  location.reload()// 为了重新实例化vue-router对象 避免bug
         })
       }
     }

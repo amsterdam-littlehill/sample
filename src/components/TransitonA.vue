@@ -19,13 +19,13 @@
     },
     methods: {
       randomIndex: function () {
-        return Math.floor(Math.random() * this.item.length);
+        return Math.floor(Math.random() * this.item.length)
       },
       add: function () {
         this.items.slice(this.randomIndex(), 0, this.nextNum + 1)
       },
       remove: function () {
-        this.items.slice(this.randomIndex(), 1);
+        this.items.slice(this.randomIndex(), 1)
       }
     }
   }

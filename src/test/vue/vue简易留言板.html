@@ -41,7 +41,9 @@
     </tr>
     <tr v-show="myData.length!=0" class="text-right">
       <td colspan="4">
-        <button @click="del(-1)" class="btn btn-danger btn-sm " data-target="#layer" data-toggle="modal" data-target="#layer" >全部删除</button>
+        <button @click="del(-1)" class="btn btn-danger btn-sm " data-target="#layer" data-toggle="modal"
+                data-target="#layer">全部删除
+        </button>
       </td>
     </tr>
     <tr v-show="myData.length==0">
@@ -82,37 +84,37 @@
           age: ''
         },
         nowIndex: -1,
-        delMsg:'确认删除吗?'
+        delMsg: '确认删除吗?'
       }
     },
     methods: {
       add: function () {
         this.myData.push({
-          username:this.addPerson.username,
-          age:this.addPerson.age
-        });
-        this.addPerson.username = '';
-        this.addPerson.age = '';
+          username: this.addPerson.username,
+          age: this.addPerson.age
+        })
+        this.addPerson.username = ''
+        this.addPerson.age = ''
       },
-      del: function (index) {
-        if(index=-1){
-          this.delMsg="确认全部删除吗？"
+      del: function ( index ) {
+        if (index = -1) {
+          this.delMsg = '确认全部删除吗？'
         }
-        this.nowIndex = index;
+        this.nowIndex = index
       },
-      delThis: function (index) {
-        if(index==-1){
-          this.myData=[];
-        }else{
-          this.myData.splice(index,1);
+      delThis: function ( index ) {
+        if (index == -1) {
+          this.myData = []
+        } else {
+          this.myData.splice(index, 1)
         }
       },
       reset: function () {
-        this.addPerson.username = '';
-        this.addPerson.age = '';
+        this.addPerson.username = ''
+        this.addPerson.age = ''
       },
     }
-  });
+  })
 </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 import fetch from '@/utils/fetch'
 
-export function getCust (custid) {
-  debugger;
+export function getCust ( custid ) {
   const data = {
     'contractRoot': {
       'tcpCont': {
@@ -28,5 +27,5 @@ export function getCust (custid) {
     url: '/cust/qry',
     method: 'post',
     data
-  })
+  }).then(res => res.data)
 }

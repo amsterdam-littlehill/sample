@@ -38,7 +38,7 @@
   var btn2 = {
     template: `<button  v-on:click="sonAdd(3)">使用组件加3</button>`,
     methods: {
-      sonAdd: function (num) {
+      sonAdd: function ( num ) {
         this.$emit('suncalladd', num)
       }
     }
@@ -53,7 +53,7 @@
       add: function () {
         this.a++
       },
-      add2: function (num) {
+      add2: function ( num ) {
         this.a += num
       }
 

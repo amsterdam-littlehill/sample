@@ -19,39 +19,39 @@
       }
     },
     created: function () {
-      console.log("1.实例已经创建");
+      console.log('1.实例已经创建')
     },
     /*2.0发生变化：使用 created 钩子函数替代。*/
     beforeComplie: function () {
-      console.log("2.编译之前")
+      console.log('2.编译之前')
     },
     /*2.0发生变化：使用 mounted  钩子函数替代。*/
     /*complied: function () {
-      console.log("3.编译之后")
-    },*/
+     console.log("3.编译之后")
+     },*/
     mounted: function () {
-      console.log("3.编译之后")
+      console.log('3.编译之后')
     },
     /*2.0发生变化：使用 mounted  钩子函数替代。*/
     /*ready: function () {
-      console.log("4.插入文档中")
-    },*/
+     console.log("4.插入文档中")
+     },*/
     mounted: function () {
       this.$nextTick(function () {
-        console.log("4.插入文档中")
+        console.log('4.插入文档中')
       })
     },
     beforeDestroy: function () {
-      console.log("5.销毁之前")
+      console.log('5.销毁之前')
     },
     destroyed: function () {
-      console.log("6.销毁之后")
+      console.log('6.销毁之后')
     },
     methods: {}
-  });
-  document.onclick=function () {
+  })
+  document.onclick = function () {
 
-  };
+  }
 </script>
 </body>
 </html>

@@ -30,25 +30,25 @@
 </template>
 
 <script>
-  import {isvalidUsername} from '@/utils/validate'
+  import { isvalidUsername } from '@/utils/validate'
 
   export default {
     name: 'login',
-    data() {
-      const validateUsername = (rule, value, callback) => {
+    data () {
+      const validateUsername = ( rule, value, callback ) => {
         if (!isvalidUsername(value)) {
           callback(new Error('请输入正确的用户名'))
         } else {
           callback()
         }
-      };
-      const validatePass = (rule, value, callback) => {
+      }
+      const validatePass = ( rule, value, callback ) => {
         if (value.length < 5) {
           callback(new Error('密码不能小于5位'))
         } else {
           callback()
         }
-      };
+      }
       return {
         loginForm: {
           username: '',
@@ -63,43 +63,43 @@
       }
     },
     methods: {
-      loginDefault() {
-        //默认密码登录
-        this.loginForm = {"username": "admin", "password": "admin"};
-        debugger;
-        this.loading2 = true;
-        /*dispatch action 中定义的方法*/
+      loginDefault () {
+        //  默认密码登录
+        this.loginForm = {'username': 'admin', 'password': 'admin'}
+        debugger
+        this.loading2 = true
+        /*  dispatch action 中定义的方法*/
         this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
-          this.loading2 = false;
-          /*this.$router.push(location) 跳转链接*/
+          this.loading2 = false
+          /*  this.$router.push(location) 跳转链接*/
           this.$router.push({path: '/'})
         }).catch(() => {
           this.loading2 = false
         })
       },
-      handleLogin() {
-        //element-ui 表单自定义校验
-        debugger;
+      handleLogin () {
+        //  element-ui 表单自定义校验
+        debugger
         this.$refs.loginForm.validate(valid => {
           if (valid) {
-            this.loading = true;
-            /*dispatch action 中定义的方法*/
+            this.loading = true
+            /*  dispatch action 中定义的方法*/
             this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
-              this.loading = false;
-              /*this.$router.push(location) 跳转链接*/
+              this.loading = false
+              /*  this.$router.push(location) 跳转链接*/
               this.$router.push({path: '/'})
             }).catch(() => {
               this.loading = false
             })
           } else {
-            console.log('error submit!!');
+            console.log('error submit!!')
             this.loading = false
             return false
           }
         })
       },
-      resetForm() {
-        this.$refs.loginForm.resetFields();//表单重置
+      resetForm () {
+        this.$refs.loginForm.resetFields()//  表单重置
       }
     }
   }

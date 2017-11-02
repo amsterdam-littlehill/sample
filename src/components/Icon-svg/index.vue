@@ -1,5 +1,7 @@
 <template>
-    <i :class="iconName"></i>
+  <svg class="svg-icon" aria-hidden="true">
+    <use :xlink:href="iconName"></use>
+  </svg>
 </template>
 
 <script>
@@ -12,8 +14,8 @@
       }
     },
     computed: {
-      iconName() {
-        return `icon iconfont ${this.iconClass}`
+      iconName () {
+        return `#icon-${this.iconClass}`
       }
     }
   }

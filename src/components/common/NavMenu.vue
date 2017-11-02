@@ -57,118 +57,118 @@
   import axios from 'axios'
 
   export default {
-    data() {
+    data () {
       return {
         isCollapse: true,
         funcMenuExtends: [
           {
-            "funcMenuExtends": [
+            'funcMenuExtends': [
               {
-                "funcMenuExtends": [
+                'funcMenuExtends': [
                   {
-                    "menuId": "10101",
-                    "menuIndex": "0",
-                    "menuLevel": "2",
-                    "menuName": "三级菜单10201",
-                    "menuType": "1000",
-                    "urlAddr": "index"
+                    'menuId': '10101',
+                    'menuIndex': '0',
+                    'menuLevel': '2',
+                    'menuName': '三级菜单10201',
+                    'menuType': '1000',
+                    'urlAddr': 'index'
                   },
                   {
-                    "menuId": "10102",
-                    "menuIndex": "1",
-                    "menuLevel": "2",
-                    "menuName": "三级菜单10202",
-                    "menuType": "1100",
-                    "urlAddr": ""
+                    'menuId': '10102',
+                    'menuIndex': '1',
+                    'menuLevel': '2',
+                    'menuName': '三级菜单10202',
+                    'menuType': '1100',
+                    'urlAddr': ''
                   }
                 ],
-                "menuId": "101",
-                "menuIndex": "0",
-                "menuLevel": "1",
-                "menuName": "二级菜单01",
-                "menuType": "1000",
-                "urlAddr": ""
+                'menuId': '101',
+                'menuIndex': '0',
+                'menuLevel': '1',
+                'menuName': '二级菜单01',
+                'menuType': '1000',
+                'urlAddr': ''
               },
               {
-                "funcMenuExtends": [
+                'funcMenuExtends': [
                   {
-                    "menuId": "10201",
-                    "menuIndex": "0",
-                    "menuLevel": "2",
-                    "menuName": "三级菜单10201",
-                    "menuType": "1000",
-                    "urlAddr": ""
+                    'menuId': '10201',
+                    'menuIndex': '0',
+                    'menuLevel': '2',
+                    'menuName': '三级菜单10201',
+                    'menuType': '1000',
+                    'urlAddr': ''
                   },
                   {
-                    "menuId": "10202",
-                    "menuIndex": "1",
-                    "menuLevel": "2",
-                    "menuName": "三级菜单10202",
-                    "menuType": "1100",
-                    "urlAddr": ""
+                    'menuId': '10202',
+                    'menuIndex': '1',
+                    'menuLevel': '2',
+                    'menuName': '三级菜单10202',
+                    'menuType': '1100',
+                    'urlAddr': ''
                   }
                 ],
-                "menuId": "102",
-                "menuIndex": "1",
-                "menuLevel": "1",
-                "menuName": "二级菜单02",
-                "menuType": "1000",
-                "urlAddr": ""
+                'menuId': '102',
+                'menuIndex': '1',
+                'menuLevel': '1',
+                'menuName': '二级菜单02',
+                'menuType': '1000',
+                'urlAddr': ''
               }
             ],
-            "menuId": "1",
-            "menuIndex": "0",
-            "menuLevel": "0",
-            "menuName": "一级菜单",
-            "menuType": "1000",
-            "urlAddr": ""
+            'menuId': '1',
+            'menuIndex': '0',
+            'menuLevel': '0',
+            'menuName': '一级菜单',
+            'menuType': '1000',
+            'urlAddr': ''
           },
           {
-            "menuId": "1",
-            "menuIndex": "0",
-            "menuLevel": "0",
-            "menuName": "一级菜单(2)",
-            "menuType": "1000",
-            "urlAddr": "index"
+            'menuId': '1',
+            'menuIndex': '0',
+            'menuLevel': '0',
+            'menuName': '一级菜单(2)',
+            'menuType': '1000',
+            'urlAddr': 'index'
           }
         ]
-      };
+      }
     },
     computed: {
-      onRoutes() {
-        return this.$route.path.replace('/', '');
+      onRoutes () {
+        return this.$route.path.replace('/', '')
       }
     },
     created: function () {
       var request = {
-        "contractRoot": {
-          "tcpCont": {
-            "svcCode": "1010010005",
-            "transactionID": "2101000501201602021234567890",
-            "sign": "xxxxxxxxxxxxx",
-            "version": "1.0"
+        'contractRoot': {
+          'tcpCont': {
+            'svcCode': '1010010005',
+            'transactionID': '2101000501201602021234567890',
+            'sign': 'xxxxxxxxxxxxx',
+            'version': '1.0'
           },
-          "svcCont": {
-            "authenticationInfo": {"sysUserId": "2017", "sysUserPostId": "20001"},
-            "requestObject": {"regionId": "8140000", "systemInfoId": "山西电信"}
+          'svcCont': {
+            'authenticationInfo': {'sysUserId': '2017', 'sysUserPostId': '20001'},
+            'requestObject': {'regionId': '8140000', 'systemInfoId': '山西电信'}
           }
         }
-      };
+      }
       /*axios.post('http://127.0.0.1:9093/bss-base-query/SystemUserFuncMenuQuery/qryFuncMenuListBySysUserId', request)
-        .then(response => {
-          debugger;
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-        })*/
+       .then(response => {
+       debugger;
+       console.log(response);
+       })
+       .catch(error => {
+       console.log(error);
+       })*/
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+      handleOpen ( key, keyPath ) {
+        console.log(key, keyPath)
       },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
+      handleClose ( key, keyPath ) {
+        console.log(key, keyPath)
       }
     }
   }

@@ -84,6 +84,9 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
+    /* 防止重复
+     * 以将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk
+     * */
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
@@ -101,7 +104,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 
 if (config.build.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
-
+  
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',

@@ -28,16 +28,16 @@
 
   /*自定义指令*/
   /*
-  * 指令名称 v-red->名称为red 去掉v
-  * el 绑定元素插入到 DOM 中。
-  * */
+   * 指令名称 v-red->名称为red 去掉v
+   * el 绑定元素插入到 DOM 中。
+   * */
   /*全局指令*/
-  Vue.directive('red', function (el) {
+  Vue.directive('red', function ( el ) {
     el.style.background = 'red'
     //vm.$el.style.background = 'red';
   })
   Vue.directive('blue', {
-    bind: function (el, binding) {
+    bind: function ( el, binding ) {
       console.log(JSON.stringify(binding))
       console.log(binding.value.color)
       el.style.background = binding.value.color
@@ -64,7 +64,7 @@
       yellow: {
         // 指令的定义
         //inserted钩子函数
-        inserted: function (el) {
+        inserted: function ( el ) {
           el.style.color = 'yellow'
         }
       },
@@ -75,7 +75,7 @@
         inserted: function () {//绑定到节点
           console.log('2 - inserted')
         },
-        update: function (el, binding, vnode, oldVnode) {
+        update: function ( el, binding, vnode, oldVnode ) {
           console.log('3 - update')
           el.style.fontSize = binding.value + 'px'
         },

@@ -25,27 +25,27 @@
       a: 'vue实例数据'
     },
     methods: {
-      parentMethod(param) {
-        console.log("这是vue实例方法：funcToA" + ",参数:" + param);
-        this.a = param;
+      parentMethod ( param ) {
+        console.log('这是vue实例方法：funcToA' + ',参数:' + param)
+        this.a = param
       }
     },
     components: {
       'aaa': {
-        data() {
+        data () {
           return {
             m2: '我是父组件aaa的数据'
           }
         },
         methods: {
-          callParentMethod() {
-            console.log("执行组件aaa中的方法:funcToA");
+          callParentMethod () {
+            console.log('执行组件aaa中的方法:funcToA')
             /*this.$root.parentMethod();*/
-            this.$emit('parentmethod', '1111111');
+            this.$emit('parentmethod', '1111111')
           },
-          hoverParentMethod() {
-            console.log("执行组件aaa中的方法:funcToA");
-            this.$emit('parentmethod', '2222');
+          hoverParentMethod () {
+            console.log('执行组件aaa中的方法:funcToA')
+            this.$emit('parentmethod', '2222')
             /*方式二:①子组件通过触发事件emit调用父组件方法*/
           }
         },
@@ -55,8 +55,8 @@
         components: {
           'bbb': {
             methods: {
-              getFuncFromA() {
-                console.log("调用父组件aaa的方法：aFunction");
+              getFuncFromA () {
+                console.log('调用父组件aaa的方法：aFunction')
               }
             },
             props: ['msg'],
@@ -65,7 +65,7 @@
         }
       }
     }
-  });
+  })
 
 </script>
 </body>

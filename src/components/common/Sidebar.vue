@@ -1,5 +1,7 @@
 <template>
-  <el-menu mode="vertical" class="el-menu-vertical-demo" theme="dark" unique-opened :default-active="$route.path" :collapse="isCollapse">
+  <el-menu mode="vertical" class="el-menu-vertical-demo" background-color="#545c64"
+           text-color="#fff" unique-opened active-text-color="#ffd04b"
+           :default-active="$route.path" :collapse="isCollapse">
     <!-- <nav-menu ></nav-menu>-->
     <sidebar-item :routes="permission_routers"></sidebar-item>
   </el-menu>
@@ -7,8 +9,8 @@
 
 
 <script>
-  //引入mapGetters 辅助函数
-  import {mapGetters} from 'vuex'
+  //  引入mapGetters 辅助函数
+  import { mapGetters } from 'vuex'
   import SidebarItem from '@/components/common/SidebarItem'
 
   export default {
@@ -19,7 +21,7 @@
         'permission_routers',
         'sidebar'
       ]),
-      isCollapse() {
+      isCollapse () {
         return !this.sidebar.opened
       }
     }

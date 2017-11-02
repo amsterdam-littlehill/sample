@@ -21,7 +21,7 @@
   export default {}
 </script>
 <style>
-  .left-nav{
+  .left-nav {
     color: #fff;
     font-size: 10px;
     height: 100%;
@@ -29,14 +29,17 @@
     float: left;
     width: 5%;
   }
-  .iconfont{
+
+  .iconfont {
     font-size: 24px;
   }
-  .left-nav ul{
+
+  .left-nav ul {
     padding: 0;
     margin: 0;
   }
-  .left-nav ul li{
+
+  .left-nav ul li {
     list-style: none;
     text-align: center;
     border-bottom: 1px solid #a5bcff;

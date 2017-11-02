@@ -73,3 +73,9 @@ typings/
 
 
 
+src/api/api.js
+src/icons/svg/
+src/styles/sidebar.scss
+src/test/vue/is.html
+src/views/customer/tpl/
+static/images/

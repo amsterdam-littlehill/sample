@@ -60,5 +60,5 @@ const cust = {
 export default {
   getCust: () => {
     return cust
-  },
+  }
 }

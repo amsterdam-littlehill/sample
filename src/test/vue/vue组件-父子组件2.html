@@ -15,31 +15,30 @@
 <script>
   var vm = new Vue({
     el: '#box',
-    data() {
+    data () {
       return {
         a: 'aaa',
       }
     },
     components: {
       'aaa': {
-        data(){
-          return{
-            msg1:'我是组件a的数据'
+        data () {
+          return {
+            msg1: '我是组件a的数据'
           }
         },
-        props:['msg'],
+        props: ['msg'],
         template: '<h2>我是组件a<bbb msg="hello"></bbb></h2>',
         components: {
           'bbb': {
-            props:['msg'],
+            props: ['msg'],
             template: '<h3>子组件b->{{msg}}</h3>'
           }
         },
 
-
       }
     }
-  });
+  })
 </script>
 </body>
 </html>

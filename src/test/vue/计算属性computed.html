@@ -52,8 +52,8 @@
           function () {
             return this.message.split('').reverse().join('')
           },
-        set: function (n) {
-          this.message=n.split('').reverse().join('')
+        set: function ( n ) {
+          this.message = n.split('').reverse().join('')
           return n.split('').reverse().join('')
         }
       },
@@ -61,7 +61,7 @@
         get: function () {
           return '苹果价格：' + this.apple
         },
-        set: function (n) {
+        set: function ( n ) {
           return this.apple = n
         }
       }

@@ -15,8 +15,8 @@
       }
     },
     methods: {
-      closeViewTabs (view, $event) {
-        this.$store.dispatch('delVisitedViews', view).then((views) => {
+      closeViewTabs ( view, $event ) {
+        this.$store.dispatch('delVisitedViews', view).then(( views ) => {
           if (this.isActive(view.path)) {
             const latestView = views.slice(-1)[0]
             if (latestView) {
@@ -38,7 +38,7 @@
       addViewTabs () {
         this.$store.dispatch('addVisitedViews', this.generateRoute())
       },
-      isActive (path) {
+      isActive ( path ) {
         return path === this.$route.path
       }
     },

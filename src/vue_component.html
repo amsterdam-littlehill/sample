@@ -35,17 +35,17 @@
   // 注册全局组件
   Vue.component('my-component', {
     template: '<h1>自定义全局组件!</h1>'
-  });
+  })
   /*//组件中声明props
-  Vue.component('pub-component', {
-    //声明props
-    props: ['message'],
-    template: '<span>{{message}}</span>'
-  });*/
+   Vue.component('pub-component', {
+   //声明props
+   props: ['message'],
+   template: '<span>{{message}}</span>'
+   });*/
   // 创建根实例
   new Vue({
     el: '#globle'
-  });
+  })
   var ve = new Vue({
     el: '#private',
     data: {
@@ -60,15 +60,15 @@
       total: 0
     },
     watch: {
-      'total': function (val, oldVal) {
-        console.log(val, oldVal);
+      'total': function ( val, oldVal ) {
+        console.log(val, oldVal)
       }
     },
     methods: {
-      whatWord: function (msg1,msg2) {
-        console.log((this.boyWords=="")+":"+(this.girlWords==""));
-        this.boyWords =!(this.boyWords=="")? this.boyWords:msg1;
-        this.girlWords = !(this.girlWords=="")? this.girlWords:msg2;
+      whatWord: function ( msg1, msg2 ) {
+        console.log((this.boyWords == '') + ':' + (this.girlWords == ''))
+        this.boyWords = !(this.boyWords == '') ? this.boyWords : msg1
+        this.girlWords = !(this.girlWords == '') ? this.girlWords : msg2
       }
     },
     components: {
@@ -103,13 +103,13 @@
         },
         methods: {
           SayToFather: function () {
-            this.$emit('whatSay', this.boy_msg);
+            this.$emit('whatSay', this.boy_msg)
           }
         }
       },
 
     }
-  });
+  })
 
 </script>
 

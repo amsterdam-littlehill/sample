@@ -10,8 +10,9 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  export default{
-    data() {
+
+  export default {
+    data () {
       return {
         role: ''
       }
@@ -22,9 +23,9 @@
       ])
     },
     watch: {
-      role(val) {
+      role ( val ) {
         this.$store.dispatch('ChangeRole', val).then(() => {
-          this.$router.push({ path: '/permission/index?' + +new Date() })
+          this.$router.push({path: '/permission/index?' + +new Date()})
         })
       }
     }

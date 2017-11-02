@@ -12,7 +12,7 @@
   export default {
     data: function () {
       return {
-        'msg':'爸，今晚吃啥？',
+        'msg': '爸，今晚吃啥？',
         'title': '头部',
         'items': [
           {
@@ -27,11 +27,11 @@
         ]
       }
     },
-    props:['msgfromfather'],
-    methods:{
-      onclickMe:function () {
-        console.log(this.msgfromfather);
-        this.$emit('son-tell-me-sth',this.msg);
+    props: ['msgfromfather'],
+    methods: {
+      onclickMe: function () {
+        console.log(this.msgfromfather)
+        this.$emit('son-tell-me-sth', this.msg)
       }
     }
   }

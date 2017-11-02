@@ -68,7 +68,12 @@
   /*内联模板*/
   Vue.component('five', {})
   Vue.component('forth', {
-    template: `<div class="divWarp"><p>通过定义全局组件引入</p></div>`
+    data(){
+      return {
+        msg:'通过定义全局组件引入'
+      }
+    },
+    template: `<div class="divWarp"><p>通过定义全局组件引入</p><span>{{ msg }}</span></div>`
   })
   var vm = new Vue({
     el: '#app',
@@ -105,7 +110,7 @@
         msg: 'hello world'
       }
     },
-    render (createElement) {
+    render ( createElement ) {
       return createElement('p', {
         attrs: {
           class: 'divWarp',

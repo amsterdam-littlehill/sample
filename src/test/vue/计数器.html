@@ -23,36 +23,34 @@
   // return count += 1;
   // }
 
-
-
   var n = (function () {
-    var n = 0;
+    var n = 0
     return {
       add: function () {
-        debugger;
-        return n += 1;
+        debugger
+        return n += 1
       },
       del: function () {
-        debugger;
-        return n -= 1;
+        debugger
+        return n -= 1
       },
       get: function () {
-        debugger;
-        return n;
+        debugger
+        return n
       }
     }
-  }());
+  }())
 
-  function myFunction1() {
-    document.getElementById("demo").innerHTML = n.add();
+  function myFunction1 () {
+    document.getElementById('demo').innerHTML = n.add()
   }
 
-  function myFunction2() {
-    document.getElementById("demo").innerHTML = n.del();
+  function myFunction2 () {
+    document.getElementById('demo').innerHTML = n.del()
   }
 
-  function myFunction3() {
-    alert(n.get());
+  function myFunction3 () {
+    alert(n.get())
   }
 </script>
 </body>

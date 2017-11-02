@@ -1,6 +1,5 @@
 <template>
   <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
-    <!--<nav-menu class="sidebar-container"></nav-menu>-->
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <v-header></v-header>
@@ -22,7 +21,7 @@
       VHeader, Sidebar, AppMain
     },
     computed: {
-      sidebar() {
+      sidebar () {
         return this.$store.state.app.sidebar
       }
     }

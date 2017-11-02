@@ -4,7 +4,7 @@
 </template>
 <script>
   export default {
-    name:'button'
+    name: 'button'
   }
 
 </script>

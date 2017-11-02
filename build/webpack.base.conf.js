@@ -8,18 +8,24 @@ function resolve (dir) {
 }
 
 module.exports = {
+  /* 程序入口*/
   entry: {
     app: './src/main.js'
   },
+  /* 程序输出*/
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    /* 输出解析文件的目录，*/
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  /* 解析模块请求的选项*/
   resolve: {
+    /* 使用的扩展名*/
     extensions: ['.js', '.vue', '.json'],
+    /* 模块别名列表*/
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
@@ -39,7 +45,6 @@ module.exports = {
   },
   module: {
     rules: [
-
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -48,8 +53,16 @@ module.exports = {
       //使用Babel转义js文件中的es6语法
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader?cacheDirectory',
         include: [resolve('src'), resolve('test')]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [resolve('src/icons')],
+        options: {
+          symbolId: 'icon-[name]'
+        }
       },
       //使用url-loader压缩和优化
       {

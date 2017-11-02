@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import IconSvg from '@/components/common/IconSvg'
+import IconSvg from '@/components/Icon-svg'
 
 // register globally
-Vue.component('icon-svg', IconSvg);
+Vue.component('icon-svg', IconSvg)

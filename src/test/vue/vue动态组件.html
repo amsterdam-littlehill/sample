@@ -11,7 +11,7 @@
   <pre>component</pre>
   元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换：</p>
   <ol>
-    <li v-for="tab in tabs" >
+    <li v-for="tab in tabs">
       <input type="button" @click="toggleTabs(tab.name)" :value="tab.name">
     </li>
   </ol>
@@ -60,7 +60,7 @@
 <script>
   var vm = new Vue({
     el: '#box',
-    data() {
+    data () {
       return {
         a: 'aaa',
         tabs: [
@@ -75,14 +75,14 @@
     computed: {
       classObject: function () {
         return {
-          'a': this.a =='aaa',
-          'b': this.a =='bbb',
+          'a': this.a == 'aaa',
+          'b': this.a == 'bbb',
         }
       }
     },
     methods: {
-      toggleTabs: function (tabName) {
-        this.a = tabName;
+      toggleTabs: function ( tabName ) {
+        this.a = tabName
       }
     },
     components: {
@@ -93,7 +93,7 @@
         template: '<div class="divBox">我是组件b</div>'
       }
     }
-  });
+  })
 </script>
 </body>
 </html>
