@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>向路由组件传递参数</title>
+  <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.css"/>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="row">
+    <div class="col-xs-offset-2 col-xs-8">
+      <div class="page-header">
+        <h2>Hello Vue-router</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      <div class="list-group">
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link class="list-group-item" to="/user/a">a</router-link>
+        <router-link class="list-group-item" to="/user/b">b</router-link>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="panel">
+        <div class="panel-body">
+          <router-view class="a" name="a"></router-view>
+          <router-view class="b" name="b"></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<template id="user">
+  <div>
+    <h1>Home</h1>
+    <p>{{msg}},{{ id }}</p>
+  </div>
+</template>
+<template id="about">
+  <div>
+    <h1>About</h1>
+    <p>About:{{ id }}</p>
+  </div>
+</template>
+<script>
+  /* 1. 定义路由组件*/
+  var User = Vue.extend({
+    props: ['id'],
+    template: '#user',
+    data: function () {
+      return {
+        msg: 'Hello!'
+      }
+    }
+  })
+  var About=Vue.extend({
+    props:['id'],
+    template:'#about'
+  })
+  /* 2.定义路由*/
+  const routes = [
+    {path: '/user/:id', components:{a:User,b:About} , props: {a:true,b:true}}
+  ]
+  /* 3.创建 router 实例*/
+  const router = new VueRouter({
+    routes,
+
+  })
+  /* 4.创建和挂载根实例*/
+  const app = new Vue({
+    el: '#app',
+    router
+  })
+</script>
+</body>
+</html>

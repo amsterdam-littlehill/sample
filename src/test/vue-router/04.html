@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue_router编程式导航</title>
+  <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.css"/>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="row">
+    <div class="col-xs-offset-2 col-xs-8">
+      <div class="page-header">
+        <h2>Hello Vue-router</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      <div class="list-group">
+        <router-link class="list-group-item" to="/home">Home</router-link>
+        <router-link class="list-group-item" to="/about">About</router-link>
+        <router-link class="list-group-item" to="/user/amsterdam">User</router-link>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="panel">
+        <div class="panel-body">
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<template id="home">
+  <div>
+    <h1>Home</h1>
+    <p>{{msg}}</p>
+  </div>
+</template>
+<template id="about">
+  <div>
+    <h1>About</h1>
+    <p>vue-router demo</p>
+    <p>
+      <button @click="back">查看用户</button>
+    </p>
+  </div>
+</template>
+<template id="news">
+  <div>
+    <p>{{ $route.params}}</p>
+  </div>
+</template>
+<template id="message">
+  <div>
+    <p>{{ $route.params}}</p>
+  </div>
+</template>
+<template id="user">
+  <div>
+    <div>
+      <h1>用户 {{ $route.params.id }}</h1>
+      <p>{{ $route.params}}</p>
+      <p>点击切换：<br>
+        路径:/user/amsterdam-->/user/bar <br>
+        news:->/user/bar/news <br>
+        message:->/user/bar/message <br>
+        <button @click="toggle">切换</button>
+      </p>
+    </div>
+    <div>
+      <ul class="nav nav-tabs">
+        <li>
+          <router-link to="/user/amsterdam/news">News</router-link>
+        </li>
+        <li>
+          <router-link to="/user/amsterdam/message">Message</router-link>
+        </li>
+      </ul>
+      <router-view></router-view>
+    </div>
+  </div>
+</template>
+<script>
+  /* 1. 定义路由组件*/
+  var Home = Vue.extend({
+    template: '#home',
+    data: function () {
+      return {
+        msg: 'Hello, vue router!'
+      }
+    }
+  })
+  var About = Vue.extend({
+    template: '#about',
+    methods: {
+      back () {
+        //this.$router.push({path: '/home'})
+        /* 字符串*/
+        this.$router.push({name: 'user', params: {id: 'bar'}})
+      }
+    }
+  })
+  var User = Vue.extend({
+    template: '#user',
+    methods: {
+      toggle () {
+        this.$router.push({name: 'user', params: {id: 'bar'}})
+      }
+    }
+  })
+  var News = Vue.extend({
+    template: '#news',
+  })
+  var Message = Vue.extend({
+    template: '#message',
+    methods: {
+      goNews () {
+        /* 命名的路由*/
+        this.$router.push({name: 'user', params: {id: 'bar'}})
+      }
+    },
+  })
+  /* 2.定义路由*/
+  const routes = [
+    /* path:'' 默认路径*/
+    {path: '', redirect: Home},
+    {path: '/home', component: Home},
+    {path: '/about', component: About},
+    {
+      path: '/user/:id', component: User, name: 'user',
+      children: [
+        {
+          path: '/user/:id/news',
+          name: 'news',
+          component: News
+        },
+        {
+          path: '/user/:id/message',
+          name: 'message',
+          component: Message
+        }
+      ]
+    }
+  ]
+  /* 3.创建 router 实例*/
+  const router = new VueRouter({
+    routes,
+
+  })
+  /* 4.创建和挂载根实例*/
+  const app = new Vue({
+    el: '#app',
+    router
+  })
+</script>
+</body>
+</html>

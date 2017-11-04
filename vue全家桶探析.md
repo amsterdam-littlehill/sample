@@ -300,6 +300,8 @@ axios.post('/user', {
   
 ***&#160; &#160; &#160; &#160;安装vue-cli的前提是你已经安装了npm，安装npm你可以直接下载node的安装包进行安装。***
   
+***&#160; &#160; &#160; &#160;nodejs@6.10.3及以上稳定版本***
+
 > **全局安装 vue-cli，如果已经安装可以忽略**
 
    `$ npm install --global vue-cli`
@@ -1596,3 +1598,374 @@ var vm = new Vue({
   }
 </script>
 ```
+
+### vue-router
+
+vue-router是Vue.js官方的路由插件，它和vue.js是深度集成的，适合用于构建单页面应用。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。
+
+>路由是什么
+
+就是SPA（单页应用）的路径管理器。
+
+> 为什么使用vue-router
+
+用Vue作的都是单页应用，就相当于只有一个主的index.html页面，所以你写的<a></a>标签是不起作用的，你必须使用vue-router来进行管理。
+
+#### 安装
+
+如使用的是Vue_CLI,已包含Vue_router;
+
+如使用script脚本引用，请[下载](https://unpkg.com/vue-router/dist/vue-router.js)
+
+如使用其他模板，安装vue-router `npm install vue-router --save-dev`
+
+#### 配置
+
+> 配置介绍
+
+`<router-link>`:组件支持用户在具有路由功能的应用中（点击）导航。 通过 to 属性指定目标地址，默认渲染成带有正确链接的 <a> 标签，可以通过配置 tag 属性生成别的标签.。另外，当目标路由成功激活时，链接元素自动设置一个表示激活的 CSS 类名。
+
+>>-. 无论是 HTML5 history 模式还是 hash 模式，它的表现行为一致，所以，当你要切换路由模式，或者在 IE9 降级使用 hash 模式，无须作任何变动。
+  
+>>  -. 在 HTML5 history 模式下，router-link 会守卫点击事件，让浏览器不再重新加载页面。
+  
+>>  -. 当你在 HTML5 history 模式下使用 base 选项之后，所有的 to 属性都不需要写（基路径）了。
+
+
+
+`<router-view>` 组件是一个 functional 组件，渲染路径匹配到的视图组件。<router-view> 渲染的组件还可以内嵌自己的 <router-view>，根据嵌套路径，渲染嵌套组件。
+
+1. 基于vue-cli的路由配置
+
+router/index.js
+
+
+```vue
+
+import Vue from 'vue'   //引入Vue
+import Router from 'vue-router'  //引入vue-router
+import Hello from '@/components/Hello'  //引入根目录下的Hello.vue组件
+ 
+Vue.use(Router)  //Vue全局使用Router
+ 
+export default new Router({
+  routes: [              //配置路由，这里是个数组
+    {                    //每一个链接都是一个对象
+      path: '/',         //路由路径
+      name: 'Hello',     //路由名称，
+      component: Hello   //对应的组件模板
+    }
+  ]
+})
+
+
+``` 
+
+2. 基于script标签引入vue-router.js
+
+```javascript
+const router = new VueRouter({
+  [
+    { path: '/foo', component: Foo },
+    { path: '/bar', component: Bar }
+  ]
+})
+```
+
+>第一个路由页面
+
+1. 基于vue_cli方式
+
+    a. 在`src/components`目录下，新建 Index.vue 文件。
+    
+```vue
+<template>
+  <div class="index">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'index',
+    data () {
+      return {
+        msg: 'vue demo index'
+      }
+    }
+  }
+</script>
+
+```
+   b. 在`router/index.js`文件的中引入Index组件,增加**Index**路由配置信息
+
+```javascript
+
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+/* 引入Index组件*/
+import Index from '@/components/Index'
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: HelloWorld
+    },
+    {
+      path: '/index',   //路由路径 /index
+      name: 'Index',    //路由名称：Index
+      component: Index  //对应的组件:Index.vue
+    }
+  ]
+})
+```
+  c. 制作导航
+    在`App.vue`中添加路由标签`router-link`
+    
+```vue
+    <p>
+       <router-link to="/">Home</router-link>
+       <router-link to="/index">Index</router-link>
+    </p>
+```
+  
+2. 基于script标签引入vue-router
+
+```html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>第一个单页应用</title>
+  <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.css"/>
+  <!--引入vue.js-->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!--引入vue-router.js-->
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="row">
+    <div class="col-xs-offset-2 col-xs-8">
+      <div class="page-header">
+        <h2>Hello Vue-router</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      <div class="list-group">
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link class="list-group-item" to="/home">Home</router-link>
+        <router-link class="list-group-item" to="/about">About</router-link>
+        <!-- vue 1.x版本
+        <a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+        <a class="list-group-item" v-link="{ path: '/about'}">About</a>
+        -->
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="panel">
+        <div class="panel-body">
+          <!-- 路由出口 -->
+          <!-- 路由匹配到的组件将渲染在这里 -->
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<template id="home">
+  <div>
+    <h1>Home</h1>
+    <p>{{msg}}</p>
+  </div>
+</template>
+<template id="about">
+  <div>
+    <h1>About</h1>
+    <p>vue-router demo</p>
+  </div>
+</template>
+
+<script>
+  /* 1. 定义路由组件*/
+  var Home = Vue.extend({
+    template: '#home',
+    data: function () {
+      return {
+        msg: 'Hello, vue router!'
+      }
+    }
+  })
+  var About = Vue.extend({
+    template: '#about',
+  })
+  /* 2.定义路由
+   每个路由应该映射一个组件。 其中"component" 可以是
+   通过 Vue.extend() 创建的组件构造器，
+   或者，只是一个组件配置对象。*/
+  const routes = [
+    {path: '/home', component: Home},
+    {path: '/about', component: About}
+  ]
+  /* 3.创建 router 实例*/
+  const router = new VueRouter({
+    routes,
+
+  })
+  /* 4.创建和挂载根实例*/
+  const app = new Vue({
+    el: '#app',
+    router
+  })
+</script>
+</body>
+</html>
+
+```
+
+> 嵌套路由
+
+在实际项目中我们会碰到多层嵌套的组件组合而成，但是我们如何实现嵌套路由呢？因此我们需要在 VueRouter 的参数中使用 children 配置，这样就可以很好的实现路由嵌套。
+
+用法：子路由的写法是在原有的路由配置下加入children字段。
+
+情形：
+
+/user/index
+
+/user/about
+
+这里`index`和`about`相对`user`是子路由，通俗理解，嵌套路由就是路由里面嵌套他的子路由。
+
+实际操作：( 基于vue_cli方式)
+
+ a.新建`IndexA.vue`&`IndexB.vue`
+ 
+IndexA.vue
+
+```vue
+
+<template>
+  <div class="indexA">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'indexA',
+    data () {
+      return {
+        msg: 'I’m indexA'
+      }
+    }
+  }
+</script>
+```
+
+IndexB.vue
+
+```vue
+
+<template>
+  <div class="indexB">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'indexB',
+    data () {
+      return {
+        msg: 'I’m indexB'
+      }
+    }
+  }
+</script>
+
+```
+
+  b.配置路由
+  
+```javascript
+
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+import Index from '@/components/Index'
+/* 引入组件indexA*/
+import indexA from '@/components/indexA'
+/* 引入组件indexB*/
+import indexB from '@/components/indexB'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: HelloWorld
+    },
+    {
+      path: '/index',
+      name: 'Index',
+      component: Index,
+      /* 使用children 配置子路由*/
+      children: [
+        {
+          path: 'indexA',
+          name: 'indexA',
+          component: indexA
+        },
+        {
+          path: 'indexB',
+          name: 'indexB',
+          component: indexB
+        }
+      ]
+    }
+  ]
+})
+
+```
+  c.在`Index.vue`中配置`router-link` 以及 `router-view`
+  
+```vue
+
+<template>
+  <div class="index">
+    <h1>{{ msg }}</h1>
+    <router-link to="/index/IndexA">IndexA</router-link>
+    |
+    <router-link to="/index/Indexb">IndexB</router-link>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'index',
+    data () {
+      return {
+        msg: 'vue demo index'
+      }
+    }
+  }
+</script>
+
+```
+  
+> 传递参数
+
+

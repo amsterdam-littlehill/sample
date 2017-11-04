@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>第一个单页应用</title>
+  <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.css"/>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="row">
+    <div class="col-xs-offset-2 col-xs-8">
+      <div class="page-header">
+        <h2>Hello Vue-router</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      <div class="list-group">
+        <!-- 使用 router-link 组件来导航. -->
+        <!-- 通过传入 `to` 属性指定链接. -->
+        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+        <router-link class="list-group-item" to="/home">Home</router-link>
+        <router-link class="list-group-item" to="/about">About</router-link>
+        <!-- vue 1.x版本
+        <a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+        <a class="list-group-item" v-link="{ path: '/about'}">About</a>
+        -->
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="panel">
+        <div class="panel-body">
+          <!-- 路由出口 -->
+          <!-- 路由匹配到的组件将渲染在这里 -->
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<template id="home">
+  <div>
+    <h1>Home</h1>
+    <p>{{msg}}</p>
+  </div>
+</template>
+<template id="about">
+  <div>
+    <h1>About</h1>
+    <p>vue-router demo</p>
+  </div>
+</template>
+
+<script>
+  /* 1. 定义路由组件*/
+  var Home = Vue.extend({
+    template: '#home',
+    data: function () {
+      return {
+        msg: 'Hello, vue router!'
+      }
+    }
+  })
+  var About = Vue.extend({
+    template: '#about',
+  })
+  /* 2.定义路由
+   每个路由应该映射一个组件。 其中"component" 可以是
+   通过 Vue.extend() 创建的组件构造器，
+   或者，只是一个组件配置对象。*/
+  const routes = [
+    {path: '/home', component: Home},
+    {path: '/about', component: About}
+  ]
+  /* 3.创建 router 实例*/
+  const router = new VueRouter({
+    routes,
+
+  })
+  /* 4.创建和挂载根实例*/
+  const app = new Vue({
+    el: '#app',
+    router
+  })
+</script>
+</body>
+</html>
